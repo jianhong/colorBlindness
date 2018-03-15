@@ -10,4 +10,5 @@ color set for color blindness
  library(colorBlindness)
  safeColors
  availableColors()
+ colorNames()
 ```

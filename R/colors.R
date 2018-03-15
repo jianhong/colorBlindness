@@ -33,7 +33,15 @@ safeColors <- c(black=BLACK, orange=ORANGE, skyBlue=SKY_BLUE,
                 bluishGreen=BLUISH_GREEN, yellow=YELLOW,
                 blue=BLUE, vermillion=VERMILLION,
                 reddishPurple=REDDISH_PURPLE)
-
+#' available color variable
+#' @description export available color names
+#' @return a character vector contain safe colors.
+#' @export
+#'
+colorNames <- function(){
+  return(c("BLACK", "ORANGE", "SKY_BLUE", "BLUISH_GREEN",
+           "YELLOW", "VERMILLION", "REDDISH_PURPLE"))
+}
 #' available colors
 #' @description export available colors
 #' @return a character vector contain safe colors.
