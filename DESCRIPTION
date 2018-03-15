@@ -1,0 +1,15 @@
+Package: colorBlindness
+Type: Package
+Title: color set for color blindness
+Version: 0.1.0
+Author: Jianhong Ou
+Maintainer: Jianhong Ou <ou.jianhong@gmail.com>
+Description: The color set for color blindness.
+   ref: Wong B. Points of view: Avoiding color. Nat Methods. 2011 Jul;8(7):525.
+Depends:
+    R(>= 1.0)
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1
