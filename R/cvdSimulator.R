@@ -6,6 +6,8 @@
 #' Color Research & Application. 24(4), pp.243-252.
 #' @param col character. A vector of colors.
 #' @param type Deficiency type, "protanope" or "deuteranope"
+#' @details 
+#' Here we did not use colorspace::simulate_cvd is because the final results are different from references paper.
 #' @importFrom colorspace desaturate
 #' @export
 #' @examples 
