@@ -29,6 +29,8 @@ REDDISH_PURPLE = "#CC79A7"
 #' @rdname safeColors
 #' @references
 #' Wong B. Points of view: Avoiding color. Nat Methods. 2011 Jul;8(7):525. PubMed PMID: 21850730.
+#' @examples 
+#' safeColors
 safeColors <- c(black=BLACK, orange=ORANGE, skyBlue=SKY_BLUE,
                 bluishGreen=BLUISH_GREEN, yellow=YELLOW,
                 blue=BLUE, vermillion=VERMILLION,
@@ -46,7 +48,9 @@ colorNames <- function(){
 #' @description export available colors
 #' @return a character vector contain safe colors.
 #' @export
-#'
+#' @examples 
+#' availableColors()
+#' 
 availableColors <- function(){
   return(safeColors)
 }

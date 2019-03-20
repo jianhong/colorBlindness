@@ -1,15 +1,21 @@
 Package: colorBlindness
 Type: Package
-Title: color set for color blindness
-Version: 0.1.0
-Author: Jianhong Ou
-Maintainer: Jianhong Ou <ou.jianhong@gmail.com>
-Description: The color set for color blindness.
-   ref: Wong B. Points of view: Avoiding color. Nat Methods. 2011 Jul;8(7):525.
+Title: Safe color set for color blindness
+Version: 0.1.1
+Author: person("Jianhong", "Ou", email="jianhong.ou@duke.edu", role=c("aut", "cre"), 
+                comment=c(ORCID="0000-0002-8652-2488"))
+Maintainer: Jianhong Ou <jianhong.ou@duke.ed>
+Description: This package provide the safe color set for color blindness, 
+             the simulator of protanopia, deuteranopia.
+PMCID: PMC4947084
 Depends:
     R(>= 1.0)
+Imports:
+  ggplot2, grDevices, methods, cowplot, colorspace
+Suggests:
+  knitr
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
