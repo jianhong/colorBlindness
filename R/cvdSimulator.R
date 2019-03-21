@@ -7,7 +7,7 @@
 #' @param col character. A vector of colors.
 #' @param type Deficiency type, "protanope" or "deuteranope"
 #' @details 
-#' Here we did not use colorspace::simulate_cvd is because the final results are different from references paper.
+#' Here use Vienot's methods but not Gustavo's methods ( implemented in colorspace::simulate_cvd).
 #' @importFrom colorspace desaturate
 #' @export
 #' @examples 

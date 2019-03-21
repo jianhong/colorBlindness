@@ -13,5 +13,6 @@ cvdPlot(plot = last_plot())
 Plot the color-deficiency simulations for ggplot grob.
 }
 \examples{
-cvdPlot(displayColors(safeColors))
+colorBlindness:::cvdPlot(displayColors(safeColors))
+colorBlindness:::cvdPlot(displayColors(palette15))
 }

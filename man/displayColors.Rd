@@ -2,12 +2,20 @@
 % Please edit documentation in R/displayColors.R
 \name{displayColors}
 \alias{displayColors}
+\alias{displayAllColors}
 \title{display colors}
 \usage{
-displayColors(col)
+displayColors(col, ...)
+
+displayAllColors(col, types = c("deuteranope", "protanope",
+  "desaturate"), ...)
 }
 \arguments{
 \item{col}{color set to display}
+
+\item{...}{parameters could be used by \link[ggplot2:geom_raster]{geom_tile}.}
+
+\item{types}{the type of color vision deficiency.}
 }
 \description{
 Display the given colors
@@ -15,4 +23,10 @@ Display the given colors
 \examples{
 displayColors(safeColors)
 displayColors(palette15)
+displayAllColors(safeColors, color="white")
+displayAllColors(palette15, color="white")
+
+}
+\references{
+Wong B. Points of view: Avoiding color. Nat Methods. 2011 Jul;8(7):525. PubMed PMID: 21850730.
 }

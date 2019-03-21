@@ -14,6 +14,9 @@ cvdSimulator(col, type = c("deuteranope", "protanope", "desaturate"))
 \description{
 Transformation of R colors by simulating color vision deficiencies.
 }
+\details{
+Here use Vienot's methods but not Gustavo's methods ( implemented in colorspace::simulate_cvd).
+}
 \examples{
 cvdSimulator(safeColors)
 }

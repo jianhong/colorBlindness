@@ -1,21 +1,21 @@
 #' Show color-deficiency simulations of a plot
 #' @description Plot the color-deficiency simulations for ggplot grob.
 #' @param plot The grob to be plotted.
-#' @export
 #' @importFrom ggplot2 last_plot
 #' @importFrom grid editGrob
 #' @importFrom cowplot plot_to_gtable plot_grid
 #' @importFrom methods is
 #' @examples 
-#' cvdPlot(displayColors(safeColors))
+#' colorBlindness:::cvdPlot(displayColors(safeColors))
+#' colorBlindness:::cvdPlot(displayColors(palette15))
 
 cvdPlot <- function(plot = last_plot()){
   ori <- plot
   deu <- replaceColors(plot, "deuteranope")
   pro <- replaceColors(plot, "protanope")
   des <- replaceColors(plot, "desaturate")
-  plot_grid(ori, des, deu, pro, scale = 0.9, 
-            labels = c("original", "desaturated", "deutanomaly", "protanomaly"))
+  plot_grid(ori, deu, pro, des, scale = 0.9, 
+            labels = c("normal vision", "deuteranopia (6%)", "protanopia (2%)", "desaturated (BW)"))
 }
 
 replaceColors <- function(grob, type){
