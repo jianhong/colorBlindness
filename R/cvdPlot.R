@@ -5,6 +5,8 @@
 #' @importFrom grid editGrob
 #' @importFrom cowplot plot_to_gtable plot_grid
 #' @importFrom methods is
+#' @details 
+#' This function is modified from https://github.com/clauswilke/colorblindr
 #' @examples 
 #' colorBlindness:::cvdPlot(displayColors(safeColors))
 #' colorBlindness:::cvdPlot(displayColors(palette15))

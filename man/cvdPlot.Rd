@@ -12,6 +12,9 @@ cvdPlot(plot = last_plot())
 \description{
 Plot the color-deficiency simulations for ggplot grob.
 }
+\details{
+This function is modified from https://github.com/clauswilke/colorblindr
+}
 \examples{
 colorBlindness:::cvdPlot(displayColors(safeColors))
 colorBlindness:::cvdPlot(displayColors(palette15))
