@@ -1,0 +1,134 @@
+---
+title: "colorBlindness Guide"
+author: "Jianhong Ou"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('colorBlindness')`"
+bibliography: bibliography.bib
+csl: nature.csl
+vignette: >
+    %\VignetteIndexEntry{colorBlindness Vignette}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document
+---
+
+```{r, echo=FALSE, results="hide", warning=FALSE}
+suppressPackageStartupMessages({
+  library(colorBlindness)
+})
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, eval=TRUE)
+```
+
+# Introduction
+
+This package is designed to provide a collection of safe colors for plots 
+such as heatmaps, pie chart.  
+
+# safeColor 
+
+## color collection from Bang Wong[@wong2011points]
+
+```{r}
+displayAllColors(safeColors, color="white")
+```
+
+
+# palette
+
+## 15 Color palettes for color blindness from Martin Krzywinski
+
+See also [GETTING INTO VISUALIZATION OF LARGE BIOLOGICAL DATA SETS](http://mkweb.bcgsc.ca/biovis2012/krzywinski-visualizing-biological-data.pdf)
+
+```{r}
+displayAllColors(paletteMartin, color="white")
+```
+
+## Color palettes from Adam Light[@light2004end]
+
+See also [Color Schemes Appropriate for Scientific Data Graphics](http://geog.uoregon.edu/datagraphics/color_scales.htm)
+
+### Green to Magenta
+
+Useful for generic diverging data. 
+
+```{r}
+displayAllColors(Green2Magenta16Steps, color="white")
+```
+
+### Blue to Dark Red
+
+Useful for temperature-like data, with a subjective interpretation (blue=cold, red=hot)
+
+```{r}
+displayAllColors(Blue2DarkRed12Steps, color="white")
+displayAllColors(Blue2DarkRed18Steps, color="white")
+displayAllColors(Blue2OrangeRed14Steps, color="white")
+```
+
+
+### Blue to Orange
+
+Useful for data like sea-level pressure, with ansubjective association (blue=low, wet, orange=high, dry) 
+
+```{r}
+displayAllColors(Blue2Orange8Steps, color="white")
+displayAllColors(Blue2Orange10Steps, color="white")
+displayAllColors(Blue2Orange12Steps, color="white")
+```
+
+
+### Blue to Green
+
+Useful for data with a winter (blue) vs. summer (green) association.
+
+```{r}
+displayAllColors(Blue2Green14Steps, color="white")
+```
+
+
+### Brown to Blue
+
+Useful for data with a dry (brown) vs. wet (blue) association.
+
+```{r}
+displayAllColors(Brown2Blue10Steps, color="white")
+displayAllColors(Brown2Blue12Steps, color="white")
+```
+
+
+### Blue to Gray
+
+Useful in particular for diverging data like cloudiness anomalies.
+
+```{r}
+displayAllColors(Blue2Gray8Steps, color="white")
+```
+
+
+### Blue to Dark Orange
+
+Useful for data without a specific subjective color association.
+
+```{r}
+displayAllColors(Blue2DarkOrange12Steps, color="white")
+displayAllColors(Blue2DarkOrange18Steps, color="white")
+```
+
+### Others
+
+```{r}
+displayAllColors(ModifiedSpectralScheme11Steps, color="white")
+displayAllColors(LightBlue2DarkBlue7Steps, color="white")
+displayAllColors(LightBlue2DarkBlue10Steps, color="white")
+displayAllColors(PairedColor12Steps, color="white")
+displayAllColors(SteppedSequential5Steps, color="white")
+```
+
+
+# Session Info
+```{r sessionInfo}
+sessionInfo()
+```
+
+# References

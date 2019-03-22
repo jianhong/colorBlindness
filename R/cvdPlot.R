@@ -9,7 +9,7 @@
 #' This function is modified from https://github.com/clauswilke/colorblindr
 #' @examples 
 #' colorBlindness:::cvdPlot(displayColors(safeColors))
-#' colorBlindness:::cvdPlot(displayColors(palette15))
+#' colorBlindness:::cvdPlot(displayColors(paletteMartin))
 
 cvdPlot <- function(plot = last_plot()){
   ori <- plot

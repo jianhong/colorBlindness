@@ -4,11 +4,16 @@
 \alias{setPDFopt}
 \title{Auxiliary funciton to set width of pdf for journals}
 \usage{
-setPDFopt(preSet = c("1col", "1.5col", "2col"))
+setPDFopt(preSet = c("1col", "1.5col", "0.5col", "2col"))
 }
 \arguments{
 \item{preSet}{The pre-setting of width,height,family,font for pdf.
-Available choices: 1col, 1.5col, 2col.}
+Available choices: 0.5col, 1col, 1.5col, 2col.}
+}
+\value{
+A named list of all the defaults. 
+If any arguments are supplied the return values are 
+the old values and the result has the visibility flag turned off.
 }
 \description{
 Set the pdf width and height for journals.
@@ -17,12 +22,13 @@ Set the pdf width and height for journals.
 The family will be Helvetica.
 The font will be 8.
 The width and height will be same. 
+0.5col=1.78 inches (4.52 cm.);
 1col=3.54 inches (9 cm.);
 1.5col=5 inches (12.7 cm.); 
 2col=7.25 inches (18.4 cm.).
 }
 \examples{
-setPDFopt("1col")
+op <- setPDFopt("1col")
 }
 \references{
 http://www.sciencemag.org/sites/default/files/Figure_prep_guide.pdf

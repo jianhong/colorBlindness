@@ -22,9 +22,9 @@ Display the given colors
 }
 \examples{
 displayColors(safeColors)
-displayColors(palette15)
+displayColors(paletteMartin)
 displayAllColors(safeColors, color="white")
-displayAllColors(palette15, color="white")
+displayAllColors(paletteMartin, color="white")
 
 }
 \references{
