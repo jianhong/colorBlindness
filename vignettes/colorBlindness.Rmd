@@ -23,20 +23,45 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE, eval=TRUE)
 # Introduction
 
 This package is designed to provide a collection of safe colors for plots 
-such as heatmaps, pie chart.  
+such as heatmaps, pie chart.
 
-# safeColor 
+There are lots of package already collected lots of safe colors:
+  
+* [munsell](https://cran.r-project.org/web/packages/munsell/index.html)
 
-## color collection from Bang Wong[@wong2011points]
+* [viridis](https://cran.r-project.org/web/packages/viridis/index.html) and [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html)
+
+* [dichromat](https://cran.r-project.org/web/packages/dichromat/index.html)
+
+* [colorblindr](https://github.com/clauswilke/colorblindr)
+
+* [shades](https://cran.r-project.org/web/packages/shades/index.html)
+
+* [ggsci](https://cran.r-project.org/web/packages/ggsci/index.html)
+
+
+# Color vision deficiency (CVD) simulator
+
+* Hans Brettel 1997[@brettel1997computerized]
+
+* Francoise Vienot 1999[@vienot1999digital]
+
+*
+
+# Collection of safe colors
+
+## safeColor 
+
+### color collection from Bang Wong[@wong2011points]
 
 ```{r}
 displayAllColors(safeColors, color="white")
 ```
 
 
-# palette
+## palette
 
-## 15 Color palettes for color blindness from Martin Krzywinski
+### 15 Color palettes for color blindness from Martin Krzywinski
 
 See also [GETTING INTO VISUALIZATION OF LARGE BIOLOGICAL DATA SETS](http://mkweb.bcgsc.ca/biovis2012/krzywinski-visualizing-biological-data.pdf)
 
@@ -44,11 +69,11 @@ See also [GETTING INTO VISUALIZATION OF LARGE BIOLOGICAL DATA SETS](http://mkweb
 displayAllColors(paletteMartin, color="white")
 ```
 
-## Color palettes from Adam Light[@light2004end]
+### Color palettes from Adam Light[@light2004end]
 
 See also [Color Schemes Appropriate for Scientific Data Graphics](http://geog.uoregon.edu/datagraphics/color_scales.htm)
 
-### Green to Magenta
+#### Green to Magenta
 
 Useful for generic diverging data. 
 
@@ -56,7 +81,7 @@ Useful for generic diverging data.
 displayAllColors(Green2Magenta16Steps, color="white")
 ```
 
-### Blue to Dark Red
+#### Blue to Dark Red
 
 Useful for temperature-like data, with a subjective interpretation (blue=cold, red=hot)
 
@@ -67,7 +92,7 @@ displayAllColors(Blue2OrangeRed14Steps, color="white")
 ```
 
 
-### Blue to Orange
+#### Blue to Orange
 
 Useful for data like sea-level pressure, with ansubjective association (blue=low, wet, orange=high, dry) 
 
@@ -78,7 +103,7 @@ displayAllColors(Blue2Orange12Steps, color="white")
 ```
 
 
-### Blue to Green
+#### Blue to Green
 
 Useful for data with a winter (blue) vs. summer (green) association.
 
@@ -87,7 +112,7 @@ displayAllColors(Blue2Green14Steps, color="white")
 ```
 
 
-### Brown to Blue
+#### Brown to Blue
 
 Useful for data with a dry (brown) vs. wet (blue) association.
 
@@ -97,7 +122,7 @@ displayAllColors(Brown2Blue12Steps, color="white")
 ```
 
 
-### Blue to Gray
+#### Blue to Gray
 
 Useful in particular for diverging data like cloudiness anomalies.
 
@@ -106,7 +131,7 @@ displayAllColors(Blue2Gray8Steps, color="white")
 ```
 
 
-### Blue to Dark Orange
+#### Blue to Dark Orange
 
 Useful for data without a specific subjective color association.
 
@@ -115,7 +140,7 @@ displayAllColors(Blue2DarkOrange12Steps, color="white")
 displayAllColors(Blue2DarkOrange18Steps, color="white")
 ```
 
-### Others
+#### Others
 
 ```{r}
 displayAllColors(ModifiedSpectralScheme11Steps, color="white")
