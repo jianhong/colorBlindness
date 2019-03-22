@@ -46,6 +46,8 @@ There are lots of package already collected lots of safe colors:
 
 * Francoise Vienot 1999[@vienot1999digital]
 
+* Gustavo M. Machado 2009[@machado2009physiologically]
+
 *
 
 # Collection of safe colors
