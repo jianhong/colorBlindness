@@ -19,11 +19,13 @@ cvdSimulator <- function(col, type=c("deuteranope", "protanope", "desaturate")){
     if(is.matrix(col)) col <- rgb(t(col), maxColorValue = 255)
     return(col)
   }
+  colcopy <- col
   col <- relativePhotometricQuantities(col)
   col <- reduceColor(col, method=type)
   col <- RGB2LMS(col)
   col <- dichromatColor(col, method=type)
   col <- LMS2RGB(col)
   col <- RGB2rgb(col)
+  col[is.na(colcopy)] <- NA
   return(col)
 }

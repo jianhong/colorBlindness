@@ -16,6 +16,6 @@ Plot the color-deficiency simulations for ggplot grob.
 This function is modified from https://github.com/clauswilke/colorblindr
 }
 \examples{
-colorBlindness:::cvdPlot(displayColors(safeColors))
-colorBlindness:::cvdPlot(displayColors(paletteMartin))
+cvdPlot(displayColors(safeColors))
+cvdPlot(displayColors(paletteMartin))
 }

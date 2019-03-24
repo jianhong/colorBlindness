@@ -7,9 +7,10 @@
 #' @importFrom methods is
 #' @details 
 #' This function is modified from https://github.com/clauswilke/colorblindr
+#' @export
 #' @examples 
-#' colorBlindness:::cvdPlot(displayColors(safeColors))
-#' colorBlindness:::cvdPlot(displayColors(paletteMartin))
+#' cvdPlot(displayColors(safeColors))
+#' cvdPlot(displayColors(paletteMartin))
 
 cvdPlot <- function(plot = last_plot()){
   ori <- plot
