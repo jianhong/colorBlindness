@@ -2,9 +2,10 @@
 #' @description Plot the color-deficiency simulations for ggplot grob.
 #' @param plot The grob to be plotted.
 #' @importFrom ggplot2 last_plot
-#' @importFrom grid editGrob
+#' @importFrom grid editGrob grid.grabExpr
 #' @importFrom cowplot plot_to_gtable plot_grid
-#' @importFrom methods is
+#' @importFrom methods is show
+#' @importFrom graphics par
 #' @details 
 #' This function is modified from https://github.com/clauswilke/colorblindr
 #' @export
@@ -13,7 +14,7 @@
 #' cvdPlot(displayColors(paletteMartin))
 
 cvdPlot <- function(plot = last_plot()){
-  ori <- plot
+  ori <- replaceColors(plot, "none")
   deu <- replaceColors(plot, "deuteranope")
   pro <- replaceColors(plot, "protanope")
   des <- replaceColors(plot, "desaturate")
@@ -22,7 +23,16 @@ cvdPlot <- function(plot = last_plot()){
 }
 
 replaceColors <- function(grob, type){
+  if(!inherits(grob, c("gg", "grob"))){#convert to grid
+    pin <- par("pin")
+    grob <- grid.grabExpr(show(grob), 
+                          warn = 0,
+                          wrap = TRUE,
+                          width = pin[1], 
+                          height = pin[2])
+  }
   if(!is(grob, "grob")) grob <- plot_to_gtable(grob)
+  if(type=="none") return(grob)
   if (!is.null(grob$gp)) {
     if (!is.null(grob$gp$col)) {
       grob$gp$col <- cvdSimulator(grob$gp$col, type)

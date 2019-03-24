@@ -63,6 +63,7 @@ library(colorBlindness)
 mat <- matrix(1:81, nrow = 9, ncol = 9)
 library(ComplexHeatmap)
 ht <- Heatmap(mat, col = Blue2DarkRed12Steps)
+cvdPlot(ht)
 
 library(ggplot2)
 library(reshape2)
