@@ -11,9 +11,9 @@ PMCID: PMC4947084
 Depends:
     R(>= 1.0)
 Imports:
-  ggplot2, grDevices, methods, cowplot, colorspace, utils
+  ggplot2, grDevices, methods, cowplot, colorspace, utils, gridGraphics
 Suggests:
-  knitr, BiocStyle, reshape2, ComplexHeatmap
+  knitr, BiocStyle, reshape2, ComplexHeatmap, pheatmap, stats
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true

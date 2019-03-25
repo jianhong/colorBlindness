@@ -6,6 +6,7 @@
 #' @importFrom cowplot plot_to_gtable plot_grid
 #' @importFrom methods is show
 #' @importFrom graphics par
+#' @importFrom gridGraphics grid.echo
 #' @details 
 #' This function is modified from https://github.com/clauswilke/colorblindr
 #' @export
@@ -14,6 +15,44 @@
 #' cvdPlot(displayColors(paletteMartin))
 
 cvdPlot <- function(plot = last_plot()){
+  expr <- substitute(plot)
+  chk <- function(){#try to avoid to run the call, however, it can not be done for pheatmap
+    if(is.call(expr)) return(TRUE)
+    return(!inherits(plot, c("gg", "grob")))
+  }
+  if(!inherits(plot, c("gg", "grob"))){#convert to grid
+    pin <- par("pin")
+    tmpfile <- tempfile()
+    sink(tmpfile, type="output")
+    plot <- tryCatch(grid.grabExpr(show(plot), 
+                                   warn = 0,
+                                   wrap = TRUE,
+                                   width = pin[1], 
+                                   height = pin[2]),
+                     error = function(e){
+                       message("Cannot handle this plot. Error message:", e)
+                     })
+    if(is.null(plot)){
+      if(is.call(expr)){
+        plot <- tryCatch(grid.grabExpr(grid.echo(function() eval(expr)),
+                                       warn = 0,
+                                       wrap = TRUE,
+                                       width = pin[1], 
+                                       height = pin[2]),
+                         error = function(e){
+                           message("Cannot handle this plot. Error message:", e)
+                         })
+      }
+    }
+    sink()
+    unlink(tmpfile)
+    if(is.null(plot)){
+      stop("Cannnot handle this plot")
+    }
+  }
+  
+  if(!is(plot, "grob")) plot <- plot_to_gtable(plot)
+  
   ori <- replaceColors(plot, "none")
   deu <- replaceColors(plot, "deuteranope")
   pro <- replaceColors(plot, "protanope")
@@ -23,15 +62,6 @@ cvdPlot <- function(plot = last_plot()){
 }
 
 replaceColors <- function(grob, type){
-  if(!inherits(grob, c("gg", "grob"))){#convert to grid
-    pin <- par("pin")
-    grob <- grid.grabExpr(show(grob), 
-                          warn = 0,
-                          wrap = TRUE,
-                          width = pin[1], 
-                          height = pin[2])
-  }
-  if(!is(grob, "grob")) grob <- plot_to_gtable(grob)
   if(type=="none") return(grob)
   if (!is.null(grob$gp)) {
     if (!is.null(grob$gp$col)) {

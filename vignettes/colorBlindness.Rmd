@@ -61,14 +61,21 @@ There are lots of package already collected lots of safe colors:
 ```{r,fig.width=12,fig.height=12}
 library(colorBlindness)
 mat <- matrix(1:81, nrow = 9, ncol = 9)
+
+cvdPlot(heatmap(mat, col=Blue2DarkRed12Steps))
+
 library(ComplexHeatmap)
 ht <- Heatmap(mat, col = Blue2DarkRed12Steps,
               cluster_rows = FALSE, cluster_columns = FALSE)
 cvdPlot(ht)
 
+library(pheatmap)
+cvdPlot(pheatmap(mat, col = Blue2DarkRed12Steps,
+                 cluster_rows = FALSE, cluster_cols = FALSE))
+
 library(ggplot2)
 library(reshape2)
-mat <- melt(mat)
+mat <- melt(t(mat[9:1, ]))
 len <- length(Blue2DarkRed12Steps)-1
 mat$v2 <- cut(mat$value,
               breaks = seq(0,ceiling(81/len)*len, 

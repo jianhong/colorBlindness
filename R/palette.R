@@ -24,7 +24,7 @@ paletteMartin <- c("Black"="#000000",
 #' @references 
 #' Light A, Bartlein PJ (2004). The End of the Rainbow? Color Schemes for Improved Data Graphics.
 #' EOS Transactions of the American Geophysical Union, 85(40), 385.
-#' @scource
+#' @source
 #' http://geog.uoregon.edu/datagraphics/color_scales.htm
 #' @details 
 #' Green2Magenta16Steps: Useful for generic diverging data. 
