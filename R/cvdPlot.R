@@ -9,6 +9,8 @@
 #' @importFrom gridGraphics grid.echo
 #' @details 
 #' This function is modified from https://github.com/clauswilke/colorblindr
+#' @return 
+#' An object of ggplot.
 #' @export
 #' @examples 
 #' cvdPlot(displayColors(safeColors))
@@ -16,7 +18,7 @@
 
 cvdPlot <- function(plot = last_plot()){
   expr <- substitute(plot)
-  chk <- function(){#try to avoid to run the call, however, it can not be done for pheatmap
+  chk <- function(){#try to avoid to run the call, however, it can not be done for pheatmap, save for later
     if(is.call(expr)) return(TRUE)
     return(!inherits(plot, c("gg", "grob")))
   }
@@ -63,6 +65,11 @@ cvdPlot <- function(plot = last_plot()){
 
 replaceColors <- function(grob, type){
   if(type=="none") return(grob)
+  if(type=="safe" && is(grob, "text")){
+    if (!is.null(grob$gp$col)) {
+      grob$gp$col <- "#000000"
+    }
+  }
   if (!is.null(grob$gp)) {
     if (!is.null(grob$gp$col)) {
       grob$gp$col <- cvdSimulator(grob$gp$col, type)

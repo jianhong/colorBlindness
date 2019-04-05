@@ -9,6 +9,9 @@ cvdPlot(plot = last_plot())
 \arguments{
 \item{plot}{The grob to be plotted.}
 }
+\value{
+An object of ggplot.
+}
 \description{
 Plot the color-deficiency simulations for ggplot grob.
 }

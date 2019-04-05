@@ -2,8 +2,10 @@ Package: colorBlindness
 Type: Package
 Title: Safe color set for color blindness
 Version: 0.1.1
-Author: person("Jianhong", "Ou", email="jianhong.ou@duke.edu", role=c("aut", "cre"), 
+Author@R: person(given="Jianhong", family="Ou", 
+                email="jianhong.ou@duke.edu", role=c("aut", "cre"), 
                 comment=c(ORCID="0000-0002-8652-2488"))
+Author: Jianhong Ou
 Maintainer: Jianhong Ou <jianhong.ou@duke.ed>
 Description: This package provide the safe color set for color blindness, 
              the simulator of protanopia, deuteranopia.
@@ -13,7 +15,7 @@ Depends:
 Imports:
   ggplot2, grDevices, methods, cowplot, colorspace, utils, gridGraphics
 Suggests:
-  knitr, BiocStyle, reshape2, ComplexHeatmap, pheatmap, stats
+  knitr, BiocStyle, reshape2, ComplexHeatmap, pheatmap, stats, jpeg
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true

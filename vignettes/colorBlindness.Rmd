@@ -88,6 +88,26 @@ cvdPlot(ht)
 ```
 
 
+# replace the color of a plot to safe color
+
+```{r}
+grid.draw(replacePlotColor(displayColors(c("Red", "Green", "blue"))))
+```
+```{r}
+## replace the color of a file
+biocLogo <- "https://www.bioconductor.org/images/logo/jpg/bioconductor_logo_rgb.jpg"
+f <- tempfile()
+download.file(biocLogo, destfile = f, mode = "wb")
+library(jpeg)
+img <- readJPEG(f)
+unlink(f)
+g <- rasterGrob(img, interpolate=TRUE)
+cvdPlot(g)
+cvdPlot(replacePlotColor(g))
+cvdPlot(replacePlotColor(ht))
+```
+
+
 # Collection of safe colors
 
 ## safeColor 
