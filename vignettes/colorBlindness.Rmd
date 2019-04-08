@@ -91,7 +91,7 @@ cvdPlot(ht)
 # replace the color of a plot to safe color
 
 ```{r}
-grid.draw(replacePlotColor(displayColors(c("Red", "Green", "blue"))))
+cvdPlot(replacePlotColor(displayColors(c("Red", "Green", "blue"))))
 ```
 ```{r}
 ## replace the color of a file
@@ -104,7 +104,18 @@ unlink(f)
 g <- rasterGrob(img, interpolate=TRUE)
 cvdPlot(g)
 cvdPlot(replacePlotColor(g))
-cvdPlot(replacePlotColor(ht))
+
+ishihara74 <- system.file("extdata", "Ishihara_9.png", package = "colorBlindness")
+library(png)
+img <- readPNG(ishihara74)
+g <- rasterGrob(img, interpolate=TRUE)
+cvdPlot(g)
+cvdPlot(replacePlotColor(g))
+
+path <- system.file("extdata", package = "colorBlindness")
+img <- lapply(file.path(path, paste0("Plate", 1:25, ".png")), readPNG)
+g <- lapply(img, rasterGrob, interpolate=TRUE)
+null <- lapply(g, function(.ele) grid.draw(cvdPlot(replacePlotColor(.ele))))
 ```
 
 

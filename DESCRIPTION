@@ -15,7 +15,7 @@ Depends:
 Imports:
   ggplot2, grDevices, methods, cowplot, colorspace, utils, gridGraphics
 Suggests:
-  knitr, BiocStyle, reshape2, ComplexHeatmap, pheatmap, stats, jpeg
+  knitr, BiocStyle, reshape2, ComplexHeatmap, pheatmap, stats, jpeg, png
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
