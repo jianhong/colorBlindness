@@ -179,12 +179,15 @@ closestColorCIE2000 <- function(col){
 
 closestColorLab <- function(col){
   lab <- col2lab(col)
-  lab.a <- lab[, "a.x"]
-  lab[, "a.x"] <- lab.a/2
+  lab.a <- lab[, "a"]
+  lab.b <- lab[, "b"]
   lab[, "b"] <- lab[, "b"] - lab.a/2
-  lab[lab[, "b"]>100, "b"] <- 100
-  lab[lab[, "b"]< -100, "b"] <- -100
-  lab[, "L"] <- lab[, "L"] - lab.a/3
+  lab[lab[, "b"]>127, "b"] <- 127
+  lab[lab[, "b"]< -128, "b"] <- -128
+  lab[, "L"] <- lab[, "L"] - lab.a/2
+  if(lab.b>0){
+    lab[, "L"] <- lab[, "L"] + lab.b/3
+  }
   lab[lab[, "L"]<0] <- 0
   lab[lab[, "L"]>100] <- 100
   newcol <- lab2hex(lab)

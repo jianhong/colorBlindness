@@ -115,7 +115,10 @@ cvdPlot(replacePlotColor(g))
 path <- system.file("extdata", package = "colorBlindness")
 img <- lapply(file.path(path, paste0("Plate", 1:25, ".png")), readPNG)
 g <- lapply(img, rasterGrob, interpolate=TRUE)
-null <- lapply(g, function(.ele) grid.draw(cvdPlot(replacePlotColor(.ele))))
+null <- lapply(g, function(.ele) 
+  grid.draw(cvdPlot(.ele, 
+                    layout = c("origin", "deuteranope", "protanope",
+                               "enhanced", "enhanced.deuteranope", "enhanced.protanope"))))
 ```
 
 

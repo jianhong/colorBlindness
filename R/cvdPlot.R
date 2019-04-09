@@ -1,6 +1,9 @@
 #' Show color-deficiency simulations of a plot
 #' @description Plot the color-deficiency simulations for ggplot grob.
 #' @param plot The grob to be plotted.
+#' @param layout The sub-figure types. the choices are origin, deuteranope,
+#' protanope, desaturate, and enhanced, enhanced.deuteranope, enhanced.protanope, 
+#' enhanced.desaturate.
 #' @importFrom ggplot2 last_plot
 #' @importFrom grid editGrob grid.grabExpr
 #' @importFrom cowplot plot_to_gtable plot_grid
@@ -16,7 +19,23 @@
 #' cvdPlot(displayColors(safeColors))
 #' cvdPlot(displayColors(paletteMartin))
 
-cvdPlot <- function(plot = last_plot()){
+cvdPlot <- function(plot = last_plot(), 
+                    layout=c("origin", "deuteranope", "protanope", "desaturate")){
+  choices = c("origin"="none", "deuteranope"="deuteranope", 
+              "protanope"="protanope", "desaturate"="desaturate",
+              "enhanced"="safe", "enhanced.deuteranope"="enhanced.deuteranope", 
+              "enhanced.protanope"="enhanced.protanope", 
+              "enhanced.desaturate"="enhanced.desaturate")
+  labels = c("none"="normal vision", "deuteranope"="deuteranopia (6%)", 
+             "protanope"="protanopia (2%)", "desaturate"="desaturated (BW)",
+             "safe"="enhanced vision", "enhanced.deuteranope"="enhanced deut", 
+             "enhanced.protanope"="enhanced prot", 
+             "enhanced.desaturate"="enhanced desat")
+  layout <- match.arg(layout, 
+                      choices = names(choices), 
+                      several.ok = TRUE)
+  layout <- choices[layout]
+  
   expr <- substitute(plot)
   chk <- function(){#try to avoid to run the call, however, it can not be done for pheatmap, save for later
     if(is.call(expr)) return(TRUE)
@@ -55,12 +74,23 @@ cvdPlot <- function(plot = last_plot()){
   
   if(!is(plot, "grob")) plot <- plot_to_gtable(plot)
   
-  ori <- replaceColors(plot, "none")
-  deu <- replaceColors(plot, "deuteranope")
-  pro <- replaceColors(plot, "protanope")
-  des <- replaceColors(plot, "desaturate")
-  plot_grid(ori, deu, pro, des, scale = 0.9, 
-            labels = c("normal vision", "deuteranopia (6%)", "protanopia (2%)", "desaturated (BW)"))
+  layout1 <- layout[!grepl("^enhanced", layout)]
+  layout2 <- layout[grepl("^enhanced", layout)]
+  if(length(layout1)>0){
+    dat <- lapply(layout1, replaceColors, grob=plot)
+  }else{
+    dat <- list()
+  }
+  if(length(layout2)>0){
+    grob <- replaceColors(plot, "safe")
+    types <- sub("enhanced.", "", layout2)
+    dat2 <- lapply(types, replaceColors, grob=grob)
+    names(dat2) <- layout2
+    dat <- c(dat, dat2)
+  }
+  dat$scale <- .9
+  dat$labels <- labels[layout]
+  do.call(plot_grid, dat)
 }
 
 replaceColors <- function(grob, type){
