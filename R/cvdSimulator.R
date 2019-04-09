@@ -43,10 +43,13 @@ cvdSimulator <- function(col, type="deuteranope"){
          {
            colcopy <- col
            col <- relativePhotometricQuantities(col)
+           alpha <- col["alpha", ]
+           col <- col[1:3, , drop=FALSE]
            col <- reduceColor(col, method=type)
            col <- RGB2LMS(col)
            col <- dichromatColor(col, method=type)
            col <- LMS2RGB(col)
+           col <- rbind(col, alpha=round(255*alpha))
            col <- RGB2rgb(col)
            col[is.na(colcopy)] <- NA
          })

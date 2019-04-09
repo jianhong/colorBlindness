@@ -1,6 +1,6 @@
 
 relativePhotometricQuantities <- function(col){
-  return((col2rgb(col)/255)^2.2)
+  return((col2rgb(col, alpha = TRUE)/255)^2.2)
 }
 
 reduceColor <- function(col, method=c("protanope", "deuteranope")){
@@ -43,8 +43,13 @@ LMS2RGB <- function(col){
 }
 
 RGB2rgb <- function(col){
-  col <- 255* (col^(1/2.2))
-  return(rgb(col[1, ], col[2, ], col[3, ], maxColorValue = 255))
+  if("alpha" %in% rownames(col)){
+    alpha <- col["alpha", ]
+  }else{
+    alpha <- 255
+  }
+  col <- 255* (col[1:3, , drop=FALSE]^(1/2.2))
+  return(rgb(col[1, ], col[2, ], col[3, ], alpha = alpha, maxColorValue = 255))
 }
 
 XYZ2LMS <- function(XYZ){#nrow(XYZ) == 3
@@ -74,7 +79,7 @@ LMS2XYZ <- function(LMS){
 # step 2. calculate the distance of the given color to the 2 nrearest colors
 # step 3. adjust lab between them
 col2lab <- function(x){
-  convertColor(t(col2rgb(x)), from = "sRGB", 
+  convertColor(t(col2rgb(x, alpha = FALSE)), from = "sRGB", 
                to="Lab", scale.in = 255)
 }
 lab2hex <- function(x){
@@ -131,8 +136,8 @@ colDistCIE2000 <- function(.ele, sc, c){ #http://www.brucelindbloom.com/index.ht
 closestColorRGB <- function(col){
   if(all(is.na(col))) return(col)
   safeCol <- c(safeColors, "white"="#FFFFFF")
-  sc <- col2rgb(safeCol)
-  c <- col2rgb(col)
+  sc <- col2rgb(safeCol, alpha = TRUE)
+  c <- col2rgb(col, alpha = TRUE)
   d <- lapply(colnames(sc), colDistRGB, sc=sc, c=c)
   d <- do.call(cbind, d)
   colnames(d) <- colnames(sc)
@@ -185,11 +190,9 @@ closestColorLab <- function(col){
   lab[lab[, "b"]>127, "b"] <- 127
   lab[lab[, "b"]< -128, "b"] <- -128
   lab[, "L"] <- lab[, "L"] - lab.a/2
-  if(lab.b>0){
-    lab[, "L"] <- lab[, "L"] + lab.b/3
-  }
-  lab[lab[, "L"]<0] <- 0
-  lab[lab[, "L"]>100] <- 100
+  lab[, "L"] <- lab[, "L"] + ifelse(lab.b>0, lab.b/4, 0)
+  lab[lab[, "L"]<0, "L"] <- 0
+  lab[lab[, "L"]>100, "L"] <- 100
   newcol <- lab2hex(lab)
   dim(newcol) <- dim(col)
   newcol[is.na(col)] <- NA
