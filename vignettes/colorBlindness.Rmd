@@ -28,10 +28,14 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE, eval=TRUE)
 
 # Introduction
 
+Color blindness is color vision deficiency, which means people with color blindness 
+may be not aware of differences among colors that are obvious to the people without it.
 This package is designed to provide a collection of safe colors for plots 
-such as heatmaps, pie chart.
+such as heatmaps, pie chart, and try to find a solution for acceptable figures for all the end users.
 
-There are lots of package already collected lots of safe colors:
+## Safe colorsets
+
+There are lots of packages already collected lots of safe colors. I list some of them, but not limited here.
   
 * [munsell](https://cran.r-project.org/web/packages/munsell/index.html)
 
@@ -45,8 +49,11 @@ There are lots of package already collected lots of safe colors:
 
 * [ggsci](https://cran.r-project.org/web/packages/ggsci/index.html)
 
+For this package, I will try to collect as much as possible safe color sets ready to use.
 
-# Color vision deficiency (CVD) simulator
+## Color vision deficiency (CVD) simulator
+
+The tool used to simulate the color vision deficiency is called CVD simulator. I list some of packages here with CVD simulator.
 
 * Hans Brettel 1997[@brettel1997computerized]
 
@@ -56,7 +63,19 @@ There are lots of package already collected lots of safe colors:
 
 *
 
-# Use safe color to plot heatmap
+# How to use this package
+
+## Use safe color to plot
+
+To plot figures by colors of this package, there are three steps:
+
+1. select correct safe color set.
+
+2. plot with the color set.
+
+3. check the plot by CVD simulator.
+
+For example if we want to plot a heatmap.
 
 ```{r,fig.width=12,fig.height=12}
 library(colorBlindness)
@@ -69,32 +88,36 @@ ht <- Heatmap(mat, col = Blue2DarkRed12Steps,
               cluster_rows = FALSE, cluster_columns = FALSE)
 cvdPlot(ht)
 
-library(pheatmap)
-cvdPlot(pheatmap(mat, col = Blue2DarkRed12Steps,
-                 cluster_rows = FALSE, cluster_cols = FALSE))
-
 library(ggplot2)
 library(reshape2)
-mat <- melt(t(mat[9:1, ]))
+mat1 <- melt(t(mat[9:1, ]))
 len <- length(Blue2DarkRed12Steps)-1
-mat$v2 <- cut(mat$value,
+mat1$v2 <- cut(mat1$value,
               breaks = seq(0,ceiling(81/len)*len, 
                            length.out = len+1))
-ht <- ggplot(mat) + 
+ht <- ggplot(mat1) + 
   geom_tile(aes(x=Var1, y=Var2, fill=v2)) + 
   scale_fill_manual(values=Blue2DarkRed12Steps) + 
   theme_bw()
 cvdPlot(ht)
+
+
+library(pheatmap)
+cvdPlot(pheatmap(mat, col = Blue2DarkRed12Steps,
+                 cluster_rows = FALSE, cluster_cols = FALSE))
 ```
 
 
-# replace the color of a plot to safe color
+## replace the color of a plot to safe color
+
+If you have figures which is not safe to color blindness people, you can try to replace the colors by `replacePlotColor` function. 
+
+### Use `cvdPlot` to check colors in a figure
+
+Read the figures into R, then convert it into a taster grob and check the colors by `cvdPlot`.
 
 ```{r}
-cvdPlot(replacePlotColor(displayColors(c("Red", "Green", "blue"))))
-```
-```{r}
-## replace the color of a file
+library(grid)
 biocLogo <- "https://www.bioconductor.org/images/logo/jpg/bioconductor_logo_rgb.jpg"
 f <- tempfile()
 download.file(biocLogo, destfile = f, mode = "wb")
@@ -103,22 +126,46 @@ img <- readJPEG(f)
 unlink(f)
 g <- rasterGrob(img, interpolate=TRUE)
 cvdPlot(g)
-cvdPlot(replacePlotColor(g))
+```
 
-ishihara74 <- system.file("extdata", "Ishihara_9.png", package = "colorBlindness")
+`replacePlotColor` function is used to change the colors to safe colors.
+
+```{r}
+cvdPlot(replacePlotColor(displayColors(c("Red", "Green", "blue"))))
+```
+
+If you have a fluorescence image and want to change the colors, you can read the figure and view the effect of color changed figure. If it is acceptable, you can draw it into a file.
+
+```{r}
+library(grid)
 library(png)
-img <- readPNG(ishihara74)
-g <- rasterGrob(img, interpolate=TRUE)
-cvdPlot(g)
-cvdPlot(replacePlotColor(g))
-
 path <- system.file("extdata", package = "colorBlindness")
-img <- lapply(file.path(path, paste0("Plate", 1:25, ".png")), readPNG)
-g <- lapply(img, rasterGrob, interpolate=TRUE)
-null <- lapply(g, function(.ele) 
-  grid.draw(cvdPlot(.ele, 
-                    layout = c("origin", "deuteranope", "protanope",
-                               "enhanced", "enhanced.deuteranope", "enhanced.protanope"))))
+img <- readPNG(file.path(path, "fluorescence.microscopy.images.png"))
+g <- rasterGrob(img, interpolate=TRUE)
+grid.draw(cvdPlot(g, layout = c("origin", "deuteranope", "protanope",
+                               "enhanced", "enhanced.deuteranope", "enhanced.protanope")))
+newImg <- replacePlotColor(g)
+png("test.image.png")
+grid.draw(newImg)
+dev.off()
+```
+
+## Best approach to make figures
+
+To plot figures for literature, there serveral things we need to consider:
+
+1. Figure format and size;
+
+2. Font family and size;
+
+3. Proper figure colors that are distinguishable by people with colorblindness and for printed in black and white.
+
+`setPDFopt` function can provide you preset figure size for PDF outputs.
+
+```{r}
+pdf.options()[c("width", "height", "pointsize")]
+setPDFopt()
+pdf.options()[c("width", "height", "pointsize")]
 ```
 
 
@@ -222,6 +269,27 @@ displayAllColors(LightBlue2DarkBlue7Steps, color="white")
 displayAllColors(LightBlue2DarkBlue10Steps, color="white")
 displayAllColors(PairedColor12Steps, color="white")
 displayAllColors(SteppedSequential5Steps, color="white")
+```
+
+
+# `replacePlotColor` effect for Ishihara Color Test.
+
+```{r}
+## replace the color of a file
+
+ishihara74 <- system.file("extdata", "Ishihara_9.png", package = "colorBlindness")
+library(png)
+img <- readPNG(ishihara74)
+g <- rasterGrob(img, interpolate=TRUE)
+cvdPlot(g)
+cvdPlot(replacePlotColor(g))
+
+img <- lapply(file.path(path, paste0("Plate", 1:24, ".png")), readPNG)
+g <- lapply(img, rasterGrob, interpolate=TRUE)
+null <- lapply(g, function(.ele) 
+  grid.draw(cvdPlot(.ele, 
+                    layout = c("origin", "deuteranope", "protanope",
+                               "enhanced", "enhanced.deuteranope", "enhanced.protanope"))))
 ```
 
 

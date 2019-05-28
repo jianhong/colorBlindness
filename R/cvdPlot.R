@@ -5,11 +5,12 @@
 #' protanope, desaturate, and enhanced, enhanced.deuteranope, enhanced.protanope, 
 #' enhanced.desaturate.
 #' @importFrom ggplot2 last_plot
-#' @importFrom grid editGrob grid.grabExpr
+#' @importFrom grid editGrob grid.grabExpr unit
 #' @importFrom cowplot plot_to_gtable plot_grid
 #' @importFrom methods is show
 #' @importFrom graphics par
 #' @importFrom gridGraphics grid.echo
+#' @importFrom gtable gtable_col
 #' @details 
 #' This function is modified from https://github.com/clauswilke/colorblindr
 #' @return 
@@ -37,11 +38,14 @@ cvdPlot <- function(plot = last_plot(),
   layout <- choices[layout]
   
   expr <- substitute(plot)
-  chk <- function(){#try to avoid to run the call, however, it can not be done for pheatmap, save for later
-    if(is.call(expr)) return(TRUE)
-    return(!inherits(plot, c("gg", "grob")))
+  chk <- function(){
+    #if(is.call(expr)) {#try to avoid to run the call, however, it can not be done for pheatmap, save for later
+    #  return(TRUE)
+    #}
+    res <- !inherits(plot, c("gg", "grob", "gList"))
+    return(res)
   }
-  if(!inherits(plot, c("gg", "grob"))){#convert to grid
+  if(chk()){#convert to grid
     pin <- par("pin")
     tmpfile <- tempfile()
     sink(tmpfile, type="output")
@@ -71,7 +75,11 @@ cvdPlot <- function(plot = last_plot(),
       stop("Cannnot handle this plot")
     }
   }
-  
+  if(is(plot, "gList")){
+    u <- unit(1, "null")
+    plot <- gtable_col(NULL, list(gTree(children = plot)), u, u)
+    plot$layout$clip <- "inherit"
+  }
   if(!is(plot, "grob")) plot <- plot_to_gtable(plot)
   
   layout1 <- layout[!grepl("^enhanced", layout)]
@@ -93,36 +101,3 @@ cvdPlot <- function(plot = last_plot(),
   do.call(plot_grid, dat)
 }
 
-replaceColors <- function(grob, type){
-  if(type=="none") return(grob)
-  if(type=="safe" && is(grob, "text")){
-    if (!is.null(grob$gp$col)) {
-      grob$gp$col <- "#000000"
-    }
-  }
-  if (!is.null(grob$gp)) {
-    if (!is.null(grob$gp$col)) {
-      grob$gp$col <- cvdSimulator(grob$gp$col, type)
-    }
-    if (!is.null(grob$gp$fill)) {
-      grob$gp$fill <- cvdSimulator(grob$gp$fill, type)
-    }
-  }
-  
-  if (length(grob$grobs)>0) {
-    grob$grobs <- lapply(grob$grobs, replaceColors, type=type)
-  }
-  
-  if (length(grob$children)>0) {
-    grob$children <- lapply(grob$children, replaceColors, type=type)
-  }
-  
-  if (is(grob, "rastergrob")) {
-    r <- cvdSimulator(grob$raster, type=type)
-    dim(r) <- dim(grob$raster)
-    class(r) <- class(grob$raster)
-    grob <- editGrob(grob, raster = r)
-  }
-  
-  return(grob)
-}

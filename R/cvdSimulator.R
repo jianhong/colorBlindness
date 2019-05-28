@@ -30,15 +30,21 @@ cvdSimulator <- function(col, type="deuteranope"){
            col1 <- col
            dim(col1) <- NULL
            col1 <- unique(col1)
-           col2 <- closestColorLab(col1)
+           col2 <- closestColorLab2(col1)
            names(col2) <- col1
            col1 <- col2[col]
            dim(col1) <- dim(col)
            col <- col1
          },
          "desaturate"={
+           #col1 <- col2rgb(col, alpha = TRUE)
+           #col <- rgb(t(col1[1:3, , drop=FALSE]), maxColorValue = 255)
            col <- desaturate(col, amount=1)
            if(is.matrix(col)) col <- rgb(t(col), maxColorValue = 255)
+           # if(any(col1["alpha", ]!=255)){
+           #   col <- rbind(col2rgb(col, alpha = FALSE), alpha = col1["alpha", ])
+           #   col <- rgb(t(col), maxColorValue = 255)
+           # }
          },
          {
            colcopy <- col

@@ -1,3 +1,37 @@
+replaceColors <- function(grob, type){
+  if(type=="none") return(grob)
+  if(type=="safe" && is(grob, "text")){
+    if (!is.null(grob$gp$col)) {
+      grob$gp$col <- "#000000"
+    }
+  }
+  if (!is.null(grob$gp)) {
+    if (!is.null(grob$gp$col)) {
+      grob$gp$col <- cvdSimulator(grob$gp$col, type)
+    }
+    if (!is.null(grob$gp$fill)) {
+      grob$gp$fill <- cvdSimulator(grob$gp$fill, type)
+    }
+  }
+  
+  if (length(grob$grobs)>0) {
+    grob$grobs <- lapply(grob$grobs, replaceColors, type=type)
+  }
+  
+  if (length(grob$children)>0) {
+    grob$children <- lapply(grob$children, replaceColors, type=type)
+  }
+  
+  if (is(grob, "rastergrob")) {
+    r <- cvdSimulator(grob$raster, type=type)
+    dim(r) <- dim(grob$raster)
+    class(r) <- class(grob$raster)
+    grob <- editGrob(grob, raster = r)
+  }
+  
+  return(grob)
+}
+
 
 relativePhotometricQuantities <- function(col){
   return((col2rgb(col, alpha = TRUE)/255)^2.2)
@@ -79,11 +113,18 @@ LMS2XYZ <- function(LMS){
 # step 2. calculate the distance of the given color to the 2 nrearest colors
 # step 3. adjust lab between them
 col2lab <- function(x){
-  convertColor(t(col2rgb(x, alpha = FALSE)), from = "sRGB", 
-               to="Lab", scale.in = 255)
+  col <- col2rgb(x, alpha = TRUE)
+  cbind(convertColor(t(col[1:3, , drop=FALSE]), from = "sRGB", 
+                     to="Lab", scale.in = 255), alpha = col["alpha", ])
 }
 lab2hex <- function(x){
-  rgb(convertColor(x, from = "Lab", to="sRGB"))
+  col <- x[, 1:3]
+  alpha <- 255
+  if(ncol(x)>3){
+    alpha <- x[, "alpha"]
+  }
+  rgb(convertColor(col, from = "Lab", to="sRGB", scale.out = 255), 
+      alpha = alpha, maxColorValue = 255)
 }
 colDistRGB <- function(.ele, sc, c){
   .ele <- sc[, .ele, drop=FALSE]
@@ -133,9 +174,10 @@ colDistCIE2000 <- function(.ele, sc, c){ #http://www.brucelindbloom.com/index.ht
   KL <- KC <- KH <- 1
   sqrt((dL_/KL/SL)^2 + (dC_/KC/SC)^2 + (dH_/KH/SH)^2 + RT*(dC_/KC/SC)*(dH_/KH/SH))
 }
+safeCol <- c(safeColors,
+             "white"="#FFFFFF")
 closestColorRGB <- function(col){
   if(all(is.na(col))) return(col)
-  safeCol <- c(safeColors, "white"="#FFFFFF")
   sc <- col2rgb(safeCol, alpha = TRUE)
   c <- col2rgb(col, alpha = TRUE)
   d <- lapply(colnames(sc), colDistRGB, sc=sc, c=c)
@@ -145,8 +187,8 @@ closestColorRGB <- function(col){
   d1 <- d + 10^(nchar(maxV))*seq.int(nrow(d))
   d1 <- order(t(d1))
   d <- t(d)[d1]
-  d <- matrix(d, ncol = 9, byrow = TRUE)
-  d1 <- matrix(d1, ncol = 9, byrow = TRUE)
+  d <- matrix(d, ncol = length(safeCol), byrow = TRUE)
+  d1 <- matrix(d1, ncol = length(safeCol), byrow = TRUE)
   d1 <- d1 - length(safeCol)*(seq.int(nrow(d1))-1)
   da <- col2lab(safeCol[d1[, 1]])
   db <- col2lab(safeCol[d1[, 2]])
@@ -159,7 +201,6 @@ closestColorRGB <- function(col){
 }
 closestColorCIE2000 <- function(col){
   if(all(is.na(col))) return(col)
-  safeCol <- c(safeColors, "white"="#FFFFFF")
   sc <- col2lab(safeCol)
   c <- col2lab(col)
   d <- lapply(names(safeCol), colDistCIE2000, sc=sc, c=c)
@@ -169,8 +210,8 @@ closestColorCIE2000 <- function(col){
   d1 <- d + 10^(nchar(maxV))*seq.int(nrow(d))
   d1 <- order(t(d1))
   d <- t(d)[d1]
-  d <- matrix(d, ncol = 9, byrow = TRUE)
-  d1 <- matrix(d1, ncol = 9, byrow = TRUE)
+  d <- matrix(d, ncol = length(safeCol), byrow = TRUE)
+  d1 <- matrix(d1, ncol = length(safeCol), byrow = TRUE)
   d1 <- d1 - length(safeCol)*(seq.int(nrow(d1))-1)
   da <- col2lab(safeCol[d1[, 1]])
   db <- col2lab(safeCol[d1[, 2]])
@@ -184,16 +225,51 @@ closestColorCIE2000 <- function(col){
 
 closestColorLab <- function(col){
   lab <- col2lab(col)
-  lab.a <- lab[, "a"]
+  lab.a <- lab[, 2]#lab[, "a"]
   lab.b <- lab[, "b"]
-  lab[, "b"] <- lab[, "b"] - lab.a/2
+  lab[, "b"] <- lab[, "b"] + sign(lab.b) * lab.a
   lab[lab[, "b"]>127, "b"] <- 127
   lab[lab[, "b"]< -128, "b"] <- -128
-  lab[, "L"] <- lab[, "L"] - lab.a/2
-  lab[, "L"] <- lab[, "L"] + ifelse(lab.b>0, lab.b/4, 0)
+  lab[, "L"] <- lab[, "L"] - sign(lab.b) * lab.a/2 + lab.b/4
+  #lab[, "L"] <- lab[, "L"] + ifelse(lab.b>0, lab.b/4, 0)
   lab[lab[, "L"]<0, "L"] <- 0
   lab[lab[, "L"]>100, "L"] <- 100
   newcol <- lab2hex(lab)
+  dim(newcol) <- dim(col)
+  newcol[is.na(col)] <- NA
+  return(newcol)
+}
+
+closestColorLab2 <- function(col){
+  lab <- col2lab(col)
+  lab.a <- lab[, 2]#lab[, "a"]
+  lab.b <- lab[, "b"]
+  ## red --> magenta=#FF00FF ## red lab.a>0 & lab.b>0, increase a little L, decrase b
+  ## green --> cyan ## green lab.a<0 & lab.b>0, decrease b, increase L, increase a
+  lab[, "L"] <- lab[, "L"] + ifelse(lab.a<0 & lab.b>0, abs(lab.a/2), 0)
+  lab[, "b"] <- ifelse(lab.a<0 & lab.b>0, -lab.b, lab.b)
+  lab[, "L"] <- lab[, "L"] + ifelse(lab.a>0 & lab.b>0, abs(lab.a/6), 0)
+  lab[, "b"] <- ifelse(lab.a>0 & lab.b>0, lab[, "b"]+lab.a, lab[, "b"])
+  #lab[, 2] <- ifelse(lab.a>0 & lab.b>0, lab.a/2, lab.a)
+  lab[lab[, 2]>127, 2] <- 127
+  lab[lab[, 2]< -128, 2] <- -128
+  lab[lab[, "b"]>127, "b"] <- 127
+  lab[lab[, "b"]< -128, "b"] <- -128
+  lab[lab[, "L"]<0, "L"] <- 0
+  lab[lab[, "L"]>100, "L"] <- 100
+  newcol <- lab2hex(lab)
+  dim(newcol) <- dim(col)
+  newcol[is.na(col)] <- NA
+  return(newcol)
+}
+
+closestColorRGB2 <- function(col){
+  rgb <- col2rgb(col, alpha = TRUE)
+  rgb["blue", ] <- rgb["blue", ] + rgb["red", ]/2 + rgb["green", ]/3
+  rgb["red", ] <- rgb["red", ] + round(rgb["green", ]/2)
+  rgb <- round(rgb)
+  rgb[rgb>255] <- 255
+  newcol <- rgb(t(rgb), maxColorValue=255)
   dim(newcol) <- dim(col)
   newcol[is.na(col)] <- NA
   return(newcol)
