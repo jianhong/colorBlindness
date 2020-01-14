@@ -7,8 +7,7 @@
 \usage{
 displayColors(col, ...)
 
-displayAllColors(col, types = c("deuteranope", "protanope",
-  "desaturate"), ...)
+displayAllColors(col, types = c("deuteranope", "protanope", "desaturate"), ...)
 }
 \arguments{
 \item{col}{color set to display}
@@ -16,6 +15,9 @@ displayAllColors(col, types = c("deuteranope", "protanope",
 \item{...}{parameters could be used by \link[ggplot2:geom_raster]{geom_tile}.}
 
 \item{types}{the type of color vision deficiency.}
+}
+\value{
+an \link[ggplot2:ggplot]{ggplot} object
 }
 \description{
 Display the given colors

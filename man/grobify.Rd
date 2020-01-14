@@ -9,6 +9,9 @@ grobify(plot)
 \arguments{
 \item{plot}{plots}
 }
+\value{
+grob object.
+}
 \description{
 use grid.grabExpr or plot_to_gtable to convert plot to grob
 }

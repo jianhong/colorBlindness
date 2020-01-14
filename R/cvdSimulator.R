@@ -9,6 +9,7 @@
 #'  Color Research & Application 30.1, pp.21-30.
 #' @param col character. A vector of colors.
 #' @param type Deficiency type, "protanope" or "deuteranope"
+#' @return colors.
 #' @details 
 #' Here use Vienot's methods but not Gustavo's methods ( implemented in colorspace::simulate_cvd).
 #' @importFrom colorspace desaturate
@@ -37,20 +38,14 @@ cvdSimulator <- function(col, type="deuteranope"){
            col <- col1
          },
          "desaturate"={
-           #col1 <- col2rgb(col, alpha = TRUE)
-           #col <- rgb(t(col1[1:3, , drop=FALSE]), maxColorValue = 255)
            col <- desaturate(col, amount=1)
            if(is.matrix(col)) col <- rgb(t(col), maxColorValue = 255)
-           # if(any(col1["alpha", ]!=255)){
-           #   col <- rbind(col2rgb(col, alpha = FALSE), alpha = col1["alpha", ])
-           #   col <- rgb(t(col), maxColorValue = 255)
-           # }
          },
          {
            colcopy <- col
            col <- relativePhotometricQuantities(col)
            alpha <- col["alpha", ]
-           col <- col[1:3, , drop=FALSE]
+           col <- col[seq.int(3), , drop=FALSE]
            col <- reduceColor(col, method=type)
            col <- RGB2LMS(col)
            col <- dichromatColor(col, method=type)

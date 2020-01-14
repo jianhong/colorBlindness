@@ -3,7 +3,7 @@
 #' @rdname displayColors
 #' @param col color set to display
 #' @param ... parameters could be used by \link[ggplot2:geom_raster]{geom_tile}.
-#' @return NULL
+#' @return an \link[ggplot2:ggplot]{ggplot} object
 #' @importFrom ggplot2 ggplot geom_tile scale_fill_manual scale_x_continuous 
 #' theme element_blank element_text aes_string coord_equal
 #' @export

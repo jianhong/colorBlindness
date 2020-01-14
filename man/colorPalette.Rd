@@ -99,6 +99,27 @@ that may be distinguishable to all viewers
 
 SteppedSequential5Steps: Useful for portraying levels-within-categories
 }
+\examples{
+paletteMartin
+Green2Magenta16Steps
+Blue2DarkRed12Steps
+Blue2DarkRed18Steps
+Blue2OrangeRed14Steps
+Blue2DarkOrange12Steps
+Blue2DarkOrange18Steps
+Blue2Green14Steps
+Brown2Blue10Steps
+Brown2Blue12Steps
+Blue2Gray8Steps
+Blue2Orange8Steps
+Blue2Orange10Steps
+Blue2Orange12Steps
+ModifiedSpectralScheme11Steps
+LightBlue2DarkBlue7Steps
+LightBlue2DarkBlue10Steps
+PairedColor12Steps
+SteppedSequential5Steps
+}
 \references{
 Light A, Bartlein PJ (2004). The End of the Rainbow? Color Schemes for Improved Data Graphics.
 EOS Transactions of the American Geophysical Union, 85(40), 385.

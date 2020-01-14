@@ -1,6 +1,7 @@
 #' convert plot to grob
 #' @description use grid.grabExpr or plot_to_gtable to convert plot to grob
 #' @param plot plots
+#' @return grob object.
 #' @importFrom grid editGrob grid.grabExpr
 #' @importFrom cowplot plot_to_gtable plot_grid
 #' @importFrom methods is show

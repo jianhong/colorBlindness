@@ -5,7 +5,7 @@
 #' protanope, desaturate, and enhanced, enhanced.deuteranope, enhanced.protanope, 
 #' enhanced.desaturate.
 #' @importFrom ggplot2 last_plot
-#' @importFrom grid editGrob grid.grabExpr unit
+#' @importFrom grid editGrob grid.grabExpr unit gTree
 #' @importFrom cowplot plot_to_gtable plot_grid
 #' @importFrom methods is show
 #' @importFrom graphics par
@@ -21,7 +21,8 @@
 #' cvdPlot(displayColors(paletteMartin))
 
 cvdPlot <- function(plot = last_plot(), 
-                    layout=c("origin", "deuteranope", "protanope", "desaturate")){
+                    layout=c("origin", "deuteranope", 
+                             "protanope", "desaturate")){
   choices = c("origin"="none", "deuteranope"="deuteranope", 
               "protanope"="protanope", "desaturate"="desaturate",
               "enhanced"="safe", "enhanced.deuteranope"="enhanced.deuteranope", 
@@ -39,7 +40,8 @@ cvdPlot <- function(plot = last_plot(),
   
   expr <- substitute(plot)
   chk <- function(){
-    #if(is.call(expr)) {#try to avoid to run the call, however, it can not be done for pheatmap, save for later
+    #if(is.call(expr)) {#try to avoid to run the call, 
+    # however, it can not be done for pheatmap, save for later
     #  return(TRUE)
     #}
     res <- !inherits(plot, c("gg", "grob", "gList"))

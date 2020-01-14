@@ -82,7 +82,7 @@ RGB2rgb <- function(col){
   }else{
     alpha <- 255
   }
-  col <- 255* (col[1:3, , drop=FALSE]^(1/2.2))
+  col <- 255* (col[seq.int(3), , drop=FALSE]^(1/2.2))
   return(rgb(col[1, ], col[2, ], col[3, ], alpha = alpha, maxColorValue = 255))
 }
 
@@ -114,11 +114,11 @@ LMS2XYZ <- function(LMS){
 # step 3. adjust lab between them
 col2lab <- function(x){
   col <- col2rgb(x, alpha = TRUE)
-  cbind(convertColor(t(col[1:3, , drop=FALSE]), from = "sRGB", 
+  cbind(convertColor(t(col[seq.int(3), , drop=FALSE]), from = "sRGB", 
                      to="Lab", scale.in = 255), alpha = col["alpha", ])
 }
 lab2hex <- function(x){
-  col <- x[, 1:3]
+  col <- x[, seq.int(3)]
   alpha <- 255
   if(ncol(x)>3){
     alpha <- x[, "alpha"]

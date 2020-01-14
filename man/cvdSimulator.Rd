@@ -11,6 +11,9 @@ cvdSimulator(col, type = "deuteranope")
 
 \item{type}{Deficiency type, "protanope" or "deuteranope"}
 }
+\value{
+colors.
+}
 \description{
 Transformation of R colors by simulating color vision deficiencies.
 }

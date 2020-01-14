@@ -4,8 +4,10 @@
 \alias{cvdPlot}
 \title{Show color-deficiency simulations of a plot}
 \usage{
-cvdPlot(plot = last_plot(), layout = c("origin", "deuteranope",
-  "protanope", "desaturate"))
+cvdPlot(
+  plot = last_plot(),
+  layout = c("origin", "deuteranope", "protanope", "desaturate")
+)
 }
 \arguments{
 \item{plot}{The grob to be plotted.}

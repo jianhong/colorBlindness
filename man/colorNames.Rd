@@ -12,3 +12,6 @@ a character vector contain safe colors.
 \description{
 export available color names
 }
+\examples{
+colorNames()
+}
