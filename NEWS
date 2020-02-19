@@ -1,3 +1,11 @@
+CHANGES IN VERSION 0.1.2
+-----------------------
+  o Fix a issue of non ASCII charactor in documentation. 
+  
+CHANGES IN VERSION 0.1.1
+-----------------------
+  o Add cvd simulator. 
+
 CHANGES IN VERSION 0.1.0
 -----------------------
   o Initial. 

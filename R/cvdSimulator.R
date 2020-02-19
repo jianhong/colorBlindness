@@ -4,7 +4,7 @@
 #' Vienot, F., Brettel, H. and Mollon, J.D., 1999. Digital video colourmaps for 
 #' checking the legibility of displays by dichromats. 
 #' Color Research & Application. 24(4), pp.243-252.
-#' Sharma, G., Wu, W. and Dalal, E.N., 2005. The CIEDE2000 color‐difference formula:
+#' Sharma, G., Wu, W. and Dalal, E.N., 2005. The CIEDE2000 color-difference formula:
 #'  Implementation notes, supplementary test data, and mathematical observations. 
 #'  Color Research & Application 30.1, pp.21-30.
 #' @param col character. A vector of colors.
