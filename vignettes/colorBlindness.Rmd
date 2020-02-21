@@ -1,8 +1,8 @@
 ---
 title: "colorBlindness Guide"
 author: "Jianhong Ou"
-date: "`r BiocStyle::doc_date()`"
-package: "`r BiocStyle::pkg_ver('colorBlindness')`"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+package: "`r packageVersion('colorBlindness')`"
 bibliography: bibliography.bib
 csl: nature.csl
 vignette: >
@@ -37,17 +37,17 @@ such as heatmaps, pie chart, and try to find a solution for acceptable figures f
 
 There are lots of packages already collected lots of safe colors. I list some of them, but not limited here.
   
-* [munsell](https://cran.r-project.org/web/packages/munsell/index.html)
+* [munsell](https://CRAN.R-project.org/package=munsell)
 
-* [viridis](https://cran.r-project.org/web/packages/viridis/index.html) and [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html)
+* [viridis](https://CRAN.R-project.org/package=viridis) and [RColorBrewer](https://CRAN.R-project.org/package=RColorBrewer)
 
-* [dichromat](https://cran.r-project.org/web/packages/dichromat/index.html)
+* [dichromat](https://CRAN.R-project.org/package=dichromat)
 
 * [colorblindr](https://github.com/clauswilke/colorblindr)
 
-* [shades](https://cran.r-project.org/web/packages/shades/index.html)
+* [shades](https://CRAN.R-project.org/package=shades)
 
-* [ggsci](https://cran.r-project.org/web/packages/ggsci/index.html)
+* [ggsci](https://CRAN.R-project.org/package=ggsci)
 
 For this package, I will try to collect as much as possible safe color sets ready to use.
 
@@ -57,9 +57,9 @@ The tool used to simulate the color vision deficiency is called CVD simulator. I
 
 * Hans Brettel 1997[@brettel1997computerized]
 
-* Francoise Vienot 1999[@vienot1999digital] (implemented in this package and package [dichromat](https://cran.r-project.org/web/packages/dichromat/index.html) )
+* Francoise Vienot 1999[@vienot1999digital] (implemented in this package and package [dichromat](https://CRAN.R-project.org/package=dichromat) )
 
-* Gustavo M. Machado 2009[@machado2009physiologically] (implemented in package [colorspace](https://cran.r-project.org/web/packages/colorspace/index.html))
+* Gustavo M. Machado 2009[@machado2009physiologically] (implemented in package [colorspace](https://CRAN.R-project.org/package=colorspace))
 
 *
 
@@ -77,16 +77,9 @@ To plot figures by colors of this package, there are three steps:
 
 For example if we want to plot a heatmap.
 
-```{r,fig.width=12,fig.height=12}
+```{r,fig.width=9,fig.height=9}
 library(colorBlindness)
 mat <- matrix(1:81, nrow = 9, ncol = 9)
-
-cvdPlot(heatmap(mat, col=Blue2DarkRed12Steps))
-
-library(ComplexHeatmap)
-ht <- Heatmap(mat, col = Blue2DarkRed12Steps,
-              cluster_rows = FALSE, cluster_columns = FALSE)
-cvdPlot(ht)
 
 library(ggplot2)
 library(reshape2)
@@ -99,36 +92,14 @@ ht <- ggplot(mat1) +
   geom_tile(aes(x=Var1, y=Var2, fill=v2)) + 
   scale_fill_manual(values=Blue2DarkRed12Steps) + 
   theme_bw()
+# check the plot by CVD simulator
 cvdPlot(ht)
-
-
-library(pheatmap)
-cvdPlot(pheatmap(mat, col = Blue2DarkRed12Steps,
-                 cluster_rows = FALSE, cluster_cols = FALSE))
 ```
 
 
 ## replace the color of a plot to safe color
 
 If you have figures which is not safe to color blindness people, you can try to replace the colors by `replacePlotColor` function. 
-
-### Use `cvdPlot` to check colors in a figure
-
-Read the figures into R, then convert it into a taster grob and check the colors by `cvdPlot`.
-
-```{r}
-library(grid)
-biocLogo <- "https://www.bioconductor.org/images/logo/jpg/bioconductor_logo_rgb.jpg"
-f <- tempfile()
-download.file(biocLogo, destfile = f, mode = "wb")
-library(jpeg)
-img <- readJPEG(f)
-unlink(f)
-g <- rasterGrob(img, interpolate=TRUE)
-cvdPlot(g)
-```
-
-`replacePlotColor` function is used to change the colors to safe colors.
 
 ```{r}
 cvdPlot(replacePlotColor(displayColors(c("Red", "Green", "blue"))))
@@ -171,125 +142,32 @@ pdf.options()[c("width", "height", "pointsize")]
 
 # Collection of safe colors
 
-## safeColor 
+There are more than 15 Color palettes for color blindness from Martin Krzywinski
 
-### color collection from Bang Wong[@wong2011points]
+See also [GETTING INTO VISUALIZATION OF LARGE BIOLOGICAL DATA SETS](http://mkweb.bcgsc.ca/biovis2012/krzywinski-visualizing-biological-data.pdf).
+
+```{r}
+displayAvailablePalette(, color="white")
+```
+
+`displayAllColors` funciton can be used to show the effect for color vision deficiency. 
+Here we dispaly color collection from Bang Wong[@wong2011points].
 
 ```{r}
 displayAllColors(safeColors, color="white")
 ```
-
-
-## palette
-
-### 15 Color palettes for color blindness from Martin Krzywinski
-
-See also [GETTING INTO VISUALIZATION OF LARGE BIOLOGICAL DATA SETS](http://mkweb.bcgsc.ca/biovis2012/krzywinski-visualizing-biological-data.pdf)
-
-```{r}
-displayAllColors(paletteMartin, color="white")
-```
-
-### Color palettes from Adam Light[@light2004end]
-
-See also [Color Schemes Appropriate for Scientific Data Graphics](http://geog.uoregon.edu/datagraphics/color_scales.htm)
-
-#### Green to Magenta
-
-Useful for generic diverging data. 
-
-```{r}
-displayAllColors(Green2Magenta16Steps, color="white")
-```
-
-#### Blue to Dark Red
-
-Useful for temperature-like data, with a subjective interpretation (blue=cold, red=hot)
-
-```{r}
-displayAllColors(Blue2DarkRed12Steps, color="white")
-displayAllColors(Blue2DarkRed18Steps, color="white")
-displayAllColors(Blue2OrangeRed14Steps, color="white")
-```
-
-
-#### Blue to Orange
-
-Useful for data like sea-level pressure, with ansubjective association (blue=low, wet, orange=high, dry) 
-
-```{r}
-displayAllColors(Blue2Orange8Steps, color="white")
-displayAllColors(Blue2Orange10Steps, color="white")
-displayAllColors(Blue2Orange12Steps, color="white")
-```
-
-
-#### Blue to Green
-
-Useful for data with a winter (blue) vs. summer (green) association.
-
-```{r}
-displayAllColors(Blue2Green14Steps, color="white")
-```
-
-
-#### Brown to Blue
-
-Useful for data with a dry (brown) vs. wet (blue) association.
-
-```{r}
-displayAllColors(Brown2Blue10Steps, color="white")
-displayAllColors(Brown2Blue12Steps, color="white")
-```
-
-
-#### Blue to Gray
-
-Useful in particular for diverging data like cloudiness anomalies.
-
-```{r}
-displayAllColors(Blue2Gray8Steps, color="white")
-```
-
-
-#### Blue to Dark Orange
-
-Useful for data without a specific subjective color association.
-
-```{r}
-displayAllColors(Blue2DarkOrange12Steps, color="white")
-displayAllColors(Blue2DarkOrange18Steps, color="white")
-```
-
-#### Others
-
-```{r}
-displayAllColors(ModifiedSpectralScheme11Steps, color="white")
-displayAllColors(LightBlue2DarkBlue7Steps, color="white")
-displayAllColors(LightBlue2DarkBlue10Steps, color="white")
-displayAllColors(PairedColor12Steps, color="white")
-displayAllColors(SteppedSequential5Steps, color="white")
-```
-
 
 # `replacePlotColor` effect for Ishihara Color Test.
 
 ```{r}
 ## replace the color of a file
 
-ishihara74 <- system.file("extdata", "Ishihara_9.png", package = "colorBlindness")
+ishihara29 <- system.file("extdata", "Plate3.png", package = "colorBlindness")
 library(png)
-img <- readPNG(ishihara74)
+img <- readPNG(ishihara29)
 g <- rasterGrob(img, interpolate=TRUE)
-cvdPlot(g)
-cvdPlot(replacePlotColor(g))
-
-img <- lapply(file.path(path, paste0("Plate", 1:24, ".png")), readPNG)
-g <- lapply(img, rasterGrob, interpolate=TRUE)
-null <- lapply(g, function(.ele) 
-  grid.draw(cvdPlot(.ele, 
-                    layout = c("origin", "deuteranope", "protanope",
-                               "enhanced", "enhanced.deuteranope", "enhanced.protanope"))))
+grid.draw(cvdPlot(g, layout = c("origin", "deuteranope", "protanope",
+                               "enhanced", "enhanced.deuteranope", "enhanced.protanope")))
 ```
 
 

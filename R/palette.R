@@ -202,10 +202,44 @@ SteppedSequential5Steps = c("#990F0F", "#B22C2C", "#CC5151", "#E57E7E", "#FFB2B2
 
 
 
-# helper <- function(url = "http://geog.uoregon.edu/datagraphics/color/BuDRd_12.txt"){
-#   x <- read.delim(url, skip=2, header=FALSE, sep = "")
-#   cat(rgb(x[, 11:13], maxColorValue = 255), sep = '", "')
-# }
-# 
-# 
-
+#' Available color palette
+#' @description List all the available color palettes.
+#' @return a character vector contain available color palettes.
+#' @export
+#' @examples 
+#' availablePalette()
+availablePalette<- function(){
+  c("paletteMartin", "Blue2DarkOrange12Steps","Blue2DarkOrange18Steps",
+    "Blue2DarkRed12Steps","Blue2DarkRed18Steps","Blue2Gray8Steps",
+    "Blue2Green14Steps","Blue2Orange10Steps","Blue2Orange12Steps",
+    "Blue2Orange8Steps","Blue2OrangeRed14Steps","Brown2Blue10Steps",
+    "Brown2Blue12Steps","Green2Magenta16Steps","LightBlue2DarkBlue10Steps",
+    "LightBlue2DarkBlue7Steps","ModifiedSpectralScheme11Steps",
+    "PairedColor12Steps","SteppedSequential5Steps")
+}
+#' Display available palette
+#' @description Display all the available color palettes.
+#' @return an \link[ggplot2:ggplot]{ggplot} object
+#' @param ... parameters could be used by \link[ggplot2:geom_raster]{geom_tile}.
+#' @export
+#' @examples 
+#' displayAvailablePalette()
+displayAvailablePalette<- function(...){
+  cols <- sapply(availablePalette(), get, simplify = FALSE)
+  len <- lengths(cols)
+  cols <- lapply(cols, function(.ele) c(.ele, rep("#FFFFFF", max(len)))[seq.int(max(len))])
+  l <- unlist(cols, use.names = FALSE)
+  d <- data.frame(x=unlist(sapply(cols, seq_along, simplify = FALSE), use.names = FALSE), 
+                  y=factor(rep(names(cols), lengths(cols)), levels = rev(names(cols))), 
+                  col=factor(l, levels=unique(l)))
+  g <- ggplot(d, aes_string(x='x', y='y', fill='col')) + 
+    geom_tile(...) + coord_equal() +
+    scale_fill_manual(guide = FALSE, values = unique(l)) +
+    theme(axis.line        = element_blank(),
+          axis.ticks       = element_blank(),
+          axis.title       = element_blank(),
+          panel.background = element_blank(),
+          axis.text.x = element_blank(),
+          axis.text.y = element_text(family = "Helvetica"))
+  return(g)
+}
