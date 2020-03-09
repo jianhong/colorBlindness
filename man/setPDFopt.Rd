@@ -60,8 +60,8 @@ CA: A Cancer Journal for Clinicians
 op <- setPDFopt("1col")
 }
 \references{
-http://www.sciencemag.org/sites/default/files/Figure_prep_guide.pdf
+<http://www.sciencemag.org/sites/default/files/Figure_prep_guide.pdf>
 
-https://images.nature.com/full/nature-assets/aj/artworkguidelines.pdf
+<https://images.nature.com/full/nature-assets/aj/artworkguidelines.pdf>
 }
 \keyword{datasets}

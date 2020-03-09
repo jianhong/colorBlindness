@@ -1,7 +1,7 @@
 #' Palette for color blindness
 #' @description The palette could be used for heatmap or pie graph
 #' @source  
-#' http://mkweb.bcgsc.ca/biovis2012/
+#' <http://mkweb.bcgsc.ca/biovis2012/>
 #' @details The names of the palette is approximal color name.
 #' @export paletteMartin
 #' @rdname colorPalette
@@ -24,10 +24,11 @@ paletteMartin <- c("Black"="#000000",
                    "LaserLemon"="#ffff6d")
 
 #' @references 
-#' Light A, Bartlein PJ (2004). The End of the Rainbow? Color Schemes for Improved Data Graphics.
+#' Light A, Bartlein PJ (2004). "The End of the Rainbow? 
+#' Color Schemes for Improved Data Graphics."
 #' EOS Transactions of the American Geophysical Union, 85(40), 385.
 #' @source
-#' http://geog.uoregon.edu/datagraphics/color_scales.htm
+#' <http://geog.uoregon.edu/datagraphics/color_scales.htm>
 #' @details 
 #' Green2Magenta16Steps: Useful for generic diverging data. 
 #' @export Green2Magenta16Steps
@@ -42,7 +43,8 @@ Green2Magenta16Steps = c("#005000", "#008600", "#00BB00", "#00F100",
 #' @details 
 #' Blue2DarkRed12/18Steps: Useful for temperature-like data, 
 #' with a subjective interpretation (blue=cold, red=hot)
-#' Blue2OrangeRed14Steps: Useful as an alternative to the red/blue temperature scale.
+#' Blue2OrangeRed14Steps: Useful as an alternative to 
+#' the red/blue temperature scale.
 #' @export Blue2DarkRed12Steps
 #' @rdname colorPalette
 #' @examples 
@@ -68,7 +70,8 @@ Blue2OrangeRed14Steps = c("#075AFF", "#3276FF", "#5990FF", "#8CB2FF",
                           "#FF6600", "#FF0000")
 
 #' @details 
-#' Blue2DarkOrange12/18Steps: Useful for data without a specific subjective color association.
+#' Blue2DarkOrange12/18Steps: Useful for data without 
+#' a specific subjective color association.
 #' @export Blue2DarkOrange12Steps
 #' @rdname colorPalette
 #' @examples 
@@ -86,7 +89,8 @@ Blue2DarkOrange18Steps = c("#006666", "#009999", "#00CCCC", "#00FFFF",
                            "#FFAD65", "#FF8E33", "#FF6E00", "#CC5500", 
                            "#993D00", "#662700")
 #' @details 
-#' Blue2Green14Steps: Useful for data with a winter (blue) vs. summer (green) association.
+#' Blue2Green14Steps: Useful for data with a winter (blue) vs. 
+#' summer (green) association.
 #' @export Blue2Green14Steps
 #' @rdname colorPalette
 #' @examples 
@@ -97,7 +101,8 @@ Blue2Green14Steps = c("#0000FF", "#3333FF", "#6565FF", "#9999FF",
                       "#33FF33", "#00FF00")
 
 #' @details 
-#' Brown2Blue10/12Steps: Useful for data with a dry (brown) vs. wet (blue) association.
+#' Brown2Blue10/12Steps: Useful for data with a dry (brown) vs. 
+#' wet (blue) association.
 #' @export Brown2Blue10Steps 
 #' @rdname colorPalette
 #' @examples 
@@ -115,7 +120,8 @@ Brown2Blue12Steps = c("#331900", "#662F00", "#996035", "#CC9B7A",
 
 
 #' @details 
-#' Blue2Gray8Steps: Useful in particular for diverging data like cloudiness anomalies.
+#' Blue2Gray8Steps: Useful in particular for diverging data like 
+#' cloudiness anomalies.
 #' @export Blue2Gray8Steps
 #' @rdname colorPalette
 #' @examples 
@@ -150,7 +156,8 @@ Blue2Orange12Steps = c("#002AFF", "#1965FF", "#3299FF", "#65CCFF",
 
 
 #' @details 
-#' ModifiedSpectralScheme11Steps:	An alternative to the spectral scheme (no green)
+#' ModifiedSpectralScheme11Steps:	An alternative to the 
+#' spectral scheme (no green)
 #' @export ModifiedSpectralScheme11Steps
 #' @rdname colorPalette
 #' @examples 
@@ -194,11 +201,13 @@ PairedColor12Steps = c("#FFBF7F", "#FF7F00", "#FFFF99", "#FFFF32",
 #' @rdname colorPalette
 #' @examples 
 #' SteppedSequential5Steps
-SteppedSequential5Steps = c("#990F0F", "#B22C2C", "#CC5151", "#E57E7E", "#FFB2B2",
-                            "#99540F", "#B26F2C", "#CC8E51", "#E5B17E", "#FFD8B2",
-                            "#6B990F", "#85B22C", "#A3CC51", "#C3E57E", "#E5FFB2", 
-                            "#0F6B99", "#2C85B2", "#51A3CC", "#7EC3E5", "#B2E5FF",
-                            "#260F99", "#422CB2", "#6551CC", "#8F7EE5", "#BFB2FF")
+SteppedSequential5Steps = c("#990F0F", "#B22C2C", "#CC5151", "#E57E7E", 
+                            "#FFB2B2", "#99540F", "#B26F2C", "#CC8E51", 
+                            "#E5B17E", "#FFD8B2", "#6B990F", "#85B22C",
+                            "#A3CC51", "#C3E57E", "#E5FFB2", "#0F6B99", 
+                            "#2C85B2", "#51A3CC", "#7EC3E5", "#B2E5FF",
+                            "#260F99", "#422CB2", "#6551CC", "#8F7EE5", 
+                            "#BFB2FF")
 
 
 
@@ -220,17 +229,23 @@ availablePalette<- function(){
 #' Display available palette
 #' @description Display all the available color palettes.
 #' @return an \link[ggplot2:ggplot]{ggplot} object
-#' @param ... parameters could be used by \link[ggplot2:geom_raster]{geom_tile}.
+#' @param ... parameters could be used by 
+#' \link[ggplot2:geom_raster]{geom_tile}.
 #' @export
 #' @examples 
 #' displayAvailablePalette()
 displayAvailablePalette<- function(...){
-  cols <- sapply(availablePalette(), get, simplify = FALSE)
+  ap <- availablePalette()
+  cols <- lapply(ap, get)
+  names(cols) <- ap
   len <- lengths(cols)
-  cols <- lapply(cols, function(.ele) c(.ele, rep("#FFFFFF", max(len)))[seq.int(max(len))])
+  cols <- lapply(cols, function(.ele) 
+    c(.ele, rep("#FFFFFF", max(len)))[seq.int(max(len))])
   l <- unlist(cols, use.names = FALSE)
-  d <- data.frame(x=unlist(sapply(cols, seq_along, simplify = FALSE), use.names = FALSE), 
-                  y=factor(rep(names(cols), lengths(cols)), levels = rev(names(cols))), 
+  d <- data.frame(x=unlist(lapply(cols, seq_along),
+                           use.names = FALSE), 
+                  y=factor(rep(names(cols), lengths(cols)),
+                           levels = rev(names(cols))), 
                   col=factor(l, levels=unique(l)))
   g <- ggplot(d, aes_string(x='x', y='y', fill='col')) + 
     geom_tile(...) + coord_equal() +

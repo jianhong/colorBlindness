@@ -13,8 +13,8 @@ cvdPlot(
 \item{plot}{The grob to be plotted.}
 
 \item{layout}{The sub-figure types. the choices are origin, deuteranope,
-protanope, desaturate, and enhanced, enhanced.deuteranope, enhanced.protanope, 
-enhanced.desaturate.}
+protanope, desaturate, and enhanced, enhanced.deuteranope, 
+enhanced.protanope, enhanced.desaturate.}
 }
 \value{
 An object of ggplot.
@@ -23,7 +23,7 @@ An object of ggplot.
 Plot the color-deficiency simulations for ggplot grob.
 }
 \details{
-This function is modified from https://github.com/clauswilke/colorblindr
+This function is modified from <https://github.com/clauswilke/colorblindr>
 }
 \examples{
 cvdPlot(displayColors(safeColors))

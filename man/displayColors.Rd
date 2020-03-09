@@ -29,6 +29,3 @@ displayAllColors(safeColors, color="white")
 displayAllColors(paletteMartin, color="white")
 
 }
-\references{
-Wong B. Points of view: Avoiding color. Nat Methods. 2011 Jul;8(7):525. PubMed PMID: 21850730.
-}

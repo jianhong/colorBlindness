@@ -134,7 +134,8 @@ colDistRGB <- function(.ele, sc, c){
   dB = (c["blue", ] - .ele["blue", ])^2
   sqrt((2+rbar/256)*dR + 4*dG + (2+(255 - rbar)/256)*dB)
 }
-colDistCIE2000 <- function(.ele, sc, c){ #http://www.brucelindbloom.com/index.html?Math.html
+#http://www.brucelindbloom.com/index.html?Math.html
+colDistCIE2000 <- function(.ele, sc, c){ 
   .ele <- sc[.ele, , drop=FALSE]
   L1 <- .ele[, "L"]
   L2 <- c[, "L"]
@@ -172,7 +173,8 @@ colDistCIE2000 <- function(.ele, sc, c){ #http://www.brucelindbloom.com/index.ht
   RC <- 2*sqrt(Cbar_^7/(Cbar_^7 + 25^7))
   RT <- -RC*sin(2*dtheta)
   KL <- KC <- KH <- 1
-  sqrt((dL_/KL/SL)^2 + (dC_/KC/SC)^2 + (dH_/KH/SH)^2 + RT*(dC_/KC/SC)*(dH_/KH/SH))
+  sqrt((dL_/KL/SL)^2 + (dC_/KC/SC)^2 + (dH_/KH/SH)^2 + 
+         RT*(dC_/KC/SC)*(dH_/KH/SH))
 }
 safeCol <- c(safeColors,
              "white"="#FFFFFF")
@@ -244,8 +246,10 @@ closestColorLab2 <- function(col){
   lab <- col2lab(col)
   lab.a <- lab[, 2]#lab[, "a"]
   lab.b <- lab[, "b"]
-  ## red --> magenta=#FF00FF ## red lab.a>0 & lab.b>0, increase a little L, decrase b
-  ## green --> cyan ## green lab.a<0 & lab.b>0, decrease b, increase L, increase a
+  ## red --> magenta=#FF00FF ## red lab.a>0 & lab.b>0, 
+  ##                            increase a little L, decrase b
+  ## green --> cyan ## green lab.a<0 & lab.b>0, 
+  ##                  decrease b, increase L, increase a
   lab[, "L"] <- lab[, "L"] + ifelse(lab.a<0 & lab.b>0, abs(lab.a/2), 0)
   lab[, "b"] <- ifelse(lab.a<0 & lab.b>0, -lab.b, lab.b)
   lab[, "L"] <- lab[, "L"] + ifelse(lab.a>0 & lab.b>0, abs(lab.a/6), 0)

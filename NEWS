@@ -1,16 +1,27 @@
+CHANGES IN VERSION 0.1.5
+-----------------------
+  * Update the DESCRIPTION. 
+  * remove the samples that will write to default path.
+  * remove sapply.
+  * adjust the format for code style.
+
+CHANGES IN VERSION 0.1.4
+-----------------------
+  * Update the DESCRIPTION. 
+  
 CHANGES IN VERSION 0.1.3
 -----------------------
-  o Decrease the size of the package. 
+  * Decrease the size of the package. 
   
 CHANGES IN VERSION 0.1.2
 -----------------------
-  o Fix a issue of non ASCII charactor in documentation. 
+  * Fix a issue of non ASCII charactor in documentation. 
   
 CHANGES IN VERSION 0.1.1
 -----------------------
-  o Add cvd simulator. 
+  * Add cvd simulator. 
 
 CHANGES IN VERSION 0.1.0
 -----------------------
-  o Initial. 
+  * Initial. 
 

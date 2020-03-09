@@ -2,8 +2,8 @@
 #' @description Plot the color-deficiency simulations for ggplot grob.
 #' @param plot The grob to be plotted.
 #' @param layout The sub-figure types. the choices are origin, deuteranope,
-#' protanope, desaturate, and enhanced, enhanced.deuteranope, enhanced.protanope, 
-#' enhanced.desaturate.
+#' protanope, desaturate, and enhanced, enhanced.deuteranope, 
+#' enhanced.protanope, enhanced.desaturate.
 #' @importFrom ggplot2 last_plot
 #' @importFrom grid editGrob grid.grabExpr unit gTree
 #' @importFrom cowplot plot_to_gtable plot_grid
@@ -12,7 +12,7 @@
 #' @importFrom gridGraphics grid.echo
 #' @importFrom gtable gtable_col
 #' @details 
-#' This function is modified from https://github.com/clauswilke/colorblindr
+#' This function is modified from <https://github.com/clauswilke/colorblindr>
 #' @return 
 #' An object of ggplot.
 #' @export
@@ -67,7 +67,8 @@ cvdPlot <- function(plot = last_plot(),
                                        width = pin[1], 
                                        height = pin[2]),
                          error = function(e){
-                           message("Cannot handle this plot. Error message:", e)
+                           message("Cannot handle this plot. Error message:", 
+                                   e)
                          })
       }
     }

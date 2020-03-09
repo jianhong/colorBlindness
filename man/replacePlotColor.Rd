@@ -13,7 +13,8 @@ replacePlotColor(plot)
 an object of gtable.
 }
 \description{
-replace the colors of plots to meet the requirment of publication.
+replace the colors of plots to meet 
+the requirment of publication.
 Replacing red with magenta or green with turquoise.
 Replacing all the colored symbols in the legend.
 }

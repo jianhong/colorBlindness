@@ -1,5 +1,6 @@
 #' replace the colors for plots
-#' @description replace the colors of plots to meet the requirment of publication.
+#' @description replace the colors of plots to meet 
+#' the requirment of publication.
 #' Replacing red with magenta or green with turquoise.
 #' Replacing all the colored symbols in the legend.
 #' @param plot The grob to be plotted.
@@ -10,7 +11,9 @@
 
 replacePlotColor <- function(plot){
   expr <- substitute(plot)
-  chk <- function(){#try to avoid to run the call, however, it can not be done for pheatmap, save for later
+  #try to avoid to run the call, 
+  #however, it can not be done for pheatmap, save for later
+  chk <- function(){
     if(is.call(expr)) return(TRUE)
     return(!inherits(plot, c("gg", "grob")))
   }
