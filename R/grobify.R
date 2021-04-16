@@ -10,7 +10,9 @@
 #' 
 grobify <- function(plot){
   expr <- substitute(plot)
-  chk <- function(){#try to avoid to run the call, however, it can not be done for pheatmap, save for later
+  #try to avoid to run the call,
+  #however, it can not be done for pheatmap, save for later
+  chk <- function(){
     if(is.call(expr)) return(TRUE)
     return(!inherits(plot, c("gg", "grob")))
   }

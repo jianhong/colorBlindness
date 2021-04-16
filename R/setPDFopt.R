@@ -17,13 +17,14 @@
 #' @examples 
 #' op <- setPDFopt("1col")
 #' @references 
-#' http://www.sciencemag.org/sites/default/files/Figure_prep_guide.pdf
+#' <http://www.sciencemag.org/sites/default/files/Figure_prep_guide.pdf>
 #' 
-#' https://images.nature.com/full/nature-assets/aj/artworkguidelines.pdf
+#' <https://images.nature.com/full/nature-assets/aj/artworkguidelines.pdf>
 #'  
 #' 
 #' 
-setPDFopt <- function(width=c("1col", "1.5col", "0.5col", "2col"), presets=PRESETS$science){
+setPDFopt <- function(width=c("1col", "1.5col", "0.5col", "2col"),
+                      presets=PRESETS$science){
   width <- match.arg(width)
   width <- presets[width]
   pdf.options(width=width, height=width,

@@ -5,7 +5,9 @@
 \alias{setPDFopt}
 \alias{PRESETS}
 \title{Auxiliary funciton to set width of pdf for journals}
-\format{An object of class \code{list} of length 4.}
+\format{
+An object of class \code{list} of length 4.
+}
 \usage{
 setPDFopt(
   width = c("1col", "1.5col", "0.5col", "2col"),
@@ -60,8 +62,8 @@ CA: A Cancer Journal for Clinicians
 op <- setPDFopt("1col")
 }
 \references{
-http://www.sciencemag.org/sites/default/files/Figure_prep_guide.pdf
+<http://www.sciencemag.org/sites/default/files/Figure_prep_guide.pdf>
 
-https://images.nature.com/full/nature-assets/aj/artworkguidelines.pdf
+<https://images.nature.com/full/nature-assets/aj/artworkguidelines.pdf>
 }
 \keyword{datasets}

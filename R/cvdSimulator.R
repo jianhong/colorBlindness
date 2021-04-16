@@ -1,17 +1,16 @@
 #' simulate color vision deficiency
-#' @description Transformation of R colors by simulating color vision deficiencies.
+#' @description Transformation of R colors by simulating color
+#'  vision deficiencies.
 #' @references 
-#' Vienot, F., Brettel, H. and Mollon, J.D., 1999. Digital video colourmaps for 
-#' checking the legibility of displays by dichromats. 
-#' Color Research & Application. 24(4), pp.243-252.
-#' Sharma, G., Wu, W. and Dalal, E.N., 2005. The CIEDE2000 color-difference formula:
-#'  Implementation notes, supplementary test data, and mathematical observations. 
-#'  Color Research & Application 30.1, pp.21-30.
+#' Vienot, F., Brettel, H. and Mollon, J.D. (1999) 
+#' <doi:10.1002/(SICI)1520-6378(199908)24:4%3C243::AID-COL5%3E3.0.CO;2-3>
+#' Sharma, G., Wu, W. and Dalal, E.N. (2005) <doi:10.1002/col.20070>
 #' @param col character. A vector of colors.
 #' @param type Deficiency type, "protanope" or "deuteranope"
 #' @return colors.
 #' @details 
-#' Here use Vienot's methods but not Gustavo's methods ( implemented in colorspace::simulate_cvd).
+#' Here use Vienot's methods but not Gustavo's methods 
+#' (implemented in colorspace::simulate_cvd).
 #' @importFrom colorspace desaturate
 #' @importFrom grDevices col2rgb
 #' @export
@@ -19,7 +18,7 @@
 #' cvdSimulator(safeColors)
 cvdSimulator <- function(col, type="deuteranope"){
   type <- match.arg(type, 
-                    choices = c("deuteranope", "protanope", "desaturate", #public
+                    choices = c("deuteranope", "protanope", "desaturate",#public
                                 "none", "safe")) #private
   switch(type,
          "none" = {

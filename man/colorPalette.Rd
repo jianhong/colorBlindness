@@ -22,11 +22,49 @@
 \alias{PairedColor12Steps}
 \alias{SteppedSequential5Steps}
 \title{Palette for color blindness}
-\format{An object of class \code{character} of length 15.}
-\source{
-http://mkweb.bcgsc.ca/biovis2012/
+\format{
+An object of class \code{character} of length 15.
 
-http://geog.uoregon.edu/datagraphics/color_scales.htm
+An object of class \code{character} of length 16.
+
+An object of class \code{character} of length 12.
+
+An object of class \code{character} of length 18.
+
+An object of class \code{character} of length 14.
+
+An object of class \code{character} of length 12.
+
+An object of class \code{character} of length 18.
+
+An object of class \code{character} of length 14.
+
+An object of class \code{character} of length 10.
+
+An object of class \code{character} of length 12.
+
+An object of class \code{character} of length 8.
+
+An object of class \code{character} of length 8.
+
+An object of class \code{character} of length 10.
+
+An object of class \code{character} of length 12.
+
+An object of class \code{character} of length 11.
+
+An object of class \code{character} of length 7.
+
+An object of class \code{character} of length 10.
+
+An object of class \code{character} of length 12.
+
+An object of class \code{character} of length 25.
+}
+\source{
+<http://mkweb.bcgsc.ca/biovis2012/>
+
+<http://geog.uoregon.edu/datagraphics/color_scales.htm>
 }
 \usage{
 paletteMartin
@@ -77,20 +115,26 @@ Green2Magenta16Steps: Useful for generic diverging data.
 
 Blue2DarkRed12/18Steps: Useful for temperature-like data, 
 with a subjective interpretation (blue=cold, red=hot)
-Blue2OrangeRed14Steps: Useful as an alternative to the red/blue temperature scale.
+Blue2OrangeRed14Steps: Useful as an alternative to 
+the red/blue temperature scale.
 
-Blue2DarkOrange12/18Steps: Useful for data without a specific subjective color association.
+Blue2DarkOrange12/18Steps: Useful for data without 
+a specific subjective color association.
 
-Blue2Green14Steps: Useful for data with a winter (blue) vs. summer (green) association.
+Blue2Green14Steps: Useful for data with a winter (blue) vs. 
+summer (green) association.
 
-Brown2Blue10/12Steps: Useful for data with a dry (brown) vs. wet (blue) association.
+Brown2Blue10/12Steps: Useful for data with a dry (brown) vs. 
+wet (blue) association.
 
-Blue2Gray8Steps: Useful in particular for diverging data like cloudiness anomalies.
+Blue2Gray8Steps: Useful in particular for diverging data like 
+cloudiness anomalies.
 
 Blue2Orange8/10/12Steps: Useful for data like sea-level pressure, 
 with ansubjective association (blue=low, wet, orange=high, dry)
 
-ModifiedSpectralScheme11Steps:	An alternative to the spectral scheme (no green)
+ModifiedSpectralScheme11Steps:	An alternative to the 
+spectral scheme (no green)
 
 LightBlue2DarkBlue7/10Steps: Useful for precipitation-like data.
 
@@ -121,7 +165,8 @@ PairedColor12Steps
 SteppedSequential5Steps
 }
 \references{
-Light A, Bartlein PJ (2004). The End of the Rainbow? Color Schemes for Improved Data Graphics.
+Light A, Bartlein PJ (2004). "The End of the Rainbow? 
+Color Schemes for Improved Data Graphics."
 EOS Transactions of the American Geophysical Union, 85(40), 385.
 }
 \keyword{datasets}

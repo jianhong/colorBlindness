@@ -33,20 +33,21 @@ displayColors <- function(col, ...){
 #' @export
 #' @rdname displayColors
 #' @param types the type of color vision deficiency.
-#' @references
-#' Wong B. Points of view: Avoiding color. Nat Methods. 2011 Jul;8(7):525. PubMed PMID: 21850730.
 #' @examples 
 #' displayAllColors(safeColors, color="white")
 #' displayAllColors(paletteMartin, color="white")
 #' 
-displayAllColors <- function(col, types=c("deuteranope", "protanope", "desaturate"), ...){
+displayAllColors <- function(col, 
+                             types=c("deuteranope", "protanope", "desaturate"),
+                             ...){
   types <- types[types %in% c("deuteranope", "protanope", "desaturate")]
   cols <- lapply(types, cvdSimulator, col=col)
   cols <- c(list(original=col), cols)
   names(cols) <- c("normal vision", types)
   l <- unlist(cols, use.names = FALSE)
   d <- data.frame(x=rep(seq_along(col), length(cols)), 
-                  y=factor(rep(names(cols), lengths(cols)), levels = rev(names(cols))), 
+                  y=factor(rep(names(cols), lengths(cols)), 
+                           levels = rev(names(cols))), 
                   col=factor(l, levels=unique(l)))
   g <- ggplot(d, aes_string(x='x', y='y', fill='col')) + 
     geom_tile(...) + coord_equal() +

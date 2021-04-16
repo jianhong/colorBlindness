@@ -7,7 +7,8 @@
 displayAvailablePalette(...)
 }
 \arguments{
-\item{...}{parameters could be used by \link[ggplot2:geom_raster]{geom_tile}.}
+\item{...}{parameters could be used by 
+\link[ggplot2:geom_raster]{geom_tile}.}
 }
 \value{
 an \link[ggplot2:ggplot]{ggplot} object

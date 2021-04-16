@@ -28,8 +28,8 @@ REDDISH_PURPLE = "#CC79A7"
 #' @export safeColors
 #' @rdname safeColors
 #' @references
-#' Wong B. Points of view: Avoiding color. Nat Methods. 2011 Jul;8(7):525. PubMed PMID: 21850730.
-#' Wong B. Points of view: Color blindness. Nat Methods 8, 441 (2011). https://doi.org/10.1038/nmeth.1618
+#' Wong, B. (2011) <doi:10.1038/nmeth.1642> 
+#' Wong, B. (2011) <doi:10.1038/nmeth.1618>
 #' @examples 
 #' safeColors
 safeColors <- c(black=BLACK, orange=ORANGE, skyBlue=SKY_BLUE,

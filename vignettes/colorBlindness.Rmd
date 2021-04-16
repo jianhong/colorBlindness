@@ -4,7 +4,7 @@ author: "Jianhong Ou"
 date: "`r format(Sys.time(), '%Y-%m-%d')`"
 package: "`r packageVersion('colorBlindness')`"
 bibliography: bibliography.bib
-csl: nature.csl
+csl: apa.csl
 vignette: >
     %\VignetteIndexEntry{colorBlindness Vignette}
     %\VignetteEngine{knitr::rmarkdown}
@@ -28,18 +28,22 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE, eval=TRUE)
 
 # Introduction
 
-Color blindness is color vision deficiency, which means people with color blindness 
-may be not aware of differences among colors that are obvious to the people without it.
+Color blindness is color vision deficiency, which means people with 
+color blindness may be not aware of differences among colors that are obvious
+to the people without it.
 This package is designed to provide a collection of safe colors for plots 
-such as heatmaps, pie chart, and try to find a solution for acceptable figures for all the end users.
+such as heatmaps, pie chart, and try to find a solution for
+acceptable figures for all the end users.
 
 ## Safe colorsets
 
-There are lots of packages already collected lots of safe colors. I list some of them, but not limited here.
+There are lots of packages already collected lots of safe colors. 
+I list some of them, but not limited here.
   
 * [munsell](https://CRAN.R-project.org/package=munsell)
 
-* [viridis](https://CRAN.R-project.org/package=viridis) and [RColorBrewer](https://CRAN.R-project.org/package=RColorBrewer)
+* [viridis](https://CRAN.R-project.org/package=viridis) and 
+[RColorBrewer](https://CRAN.R-project.org/package=RColorBrewer)
 
 * [dichromat](https://CRAN.R-project.org/package=dichromat)
 
@@ -49,19 +53,24 @@ There are lots of packages already collected lots of safe colors. I list some of
 
 * [ggsci](https://CRAN.R-project.org/package=ggsci)
 
-For this package, I will try to collect as much as possible safe color sets ready to use.
+For this package, I will try to collect as much as possible safe color sets
+ready to use.
 
 ## Color vision deficiency (CVD) simulator
 
-The tool used to simulate the color vision deficiency is called CVD simulator. I list some of packages here with CVD simulator.
+The tool used to simulate the color vision deficiency is called CVD simulator.
+I list some of packages here with CVD simulator.
 
 * Hans Brettel 1997[@brettel1997computerized]
 
-* Francoise Vienot 1999[@vienot1999digital] (implemented in this package and package [dichromat](https://CRAN.R-project.org/package=dichromat) )
+* Francoise Vienot 1999[@vienot1999digital] (implemented in this package and 
+package [dichromat](https://CRAN.R-project.org/package=dichromat) )
 
-* Gustavo M. Machado 2009[@machado2009physiologically] (implemented in package [colorspace](https://CRAN.R-project.org/package=colorspace))
+* Gustavo M. Machado 2009[@machado2009physiologically] (implemented in 
+package [colorspace](https://CRAN.R-project.org/package=colorspace))
 
-*
+* Claire D. McWhite and Claus O. Wilke. 
+[colorblindr](https://github.com/clauswilke/colorblindr)
 
 # How to use this package
 
@@ -99,13 +108,16 @@ cvdPlot(ht)
 
 ## replace the color of a plot to safe color
 
-If you have figures which is not safe to color blindness people, you can try to replace the colors by `replacePlotColor` function. 
+If you have figures which is not safe to color blindness people, 
+you can try to replace the colors by `replacePlotColor` function. 
 
 ```{r}
 cvdPlot(replacePlotColor(displayColors(c("Red", "Green", "blue"))))
 ```
 
-If you have a fluorescence image and want to change the colors, you can read the figure and view the effect of color changed figure. If it is acceptable, you can draw it into a file.
+If you have a fluorescence image and want to change the colors, 
+you can read the figure and view the effect of color changed figure. 
+If it is acceptable, you can draw it into a file.
 
 ```{r}
 library(grid)
@@ -113,10 +125,13 @@ library(png)
 path <- system.file("extdata", package = "colorBlindness")
 img <- readPNG(file.path(path, "fluorescence.microscopy.images.png"))
 g <- rasterGrob(img, interpolate=TRUE)
-grid.draw(cvdPlot(g, layout = c("origin", "deuteranope", "protanope",
-                               "enhanced", "enhanced.deuteranope", "enhanced.protanope")))
+grid.draw(cvdPlot(g, 
+                  layout = c("origin", "deuteranope", "protanope",
+                             "enhanced", "enhanced.deuteranope", 
+                             "enhanced.protanope")))
 newImg <- replacePlotColor(g)
-png("test.image.png")
+outfile <- tempfile(fileext = ".png")
+png(outfile)
 grid.draw(newImg)
 dev.off()
 ```
@@ -129,7 +144,8 @@ To plot figures for literature, there serveral things we need to consider:
 
 2. Font family and size;
 
-3. Proper figure colors that are distinguishable by people with colorblindness and for printed in black and white.
+3. Proper figure colors that are distinguishable by people with colorblindness
+and for printed in black and white.
 
 `setPDFopt` function can provide you preset figure size for PDF outputs.
 
@@ -142,15 +158,20 @@ pdf.options()[c("width", "height", "pointsize")]
 
 # Collection of safe colors
 
-There are more than 15 Color palettes for color blindness from Martin Krzywinski
+There are more than 15 Color palettes for color blindness from
+Martin Krzywinski and et al.
 
-See also [GETTING INTO VISUALIZATION OF LARGE BIOLOGICAL DATA SETS](http://mkweb.bcgsc.ca/biovis2012/krzywinski-visualizing-biological-data.pdf).
+See also [GETTING INTO VISUALIZATION OF LARGE BIOLOGICAL DATA
+SETS](http://mkweb.bcgsc.ca/biovis2012/krzywinski-visualizing-biological-data.pdf)
+and [Color Schemes Appropriate for Scientific Data
+Graphics](http://geog.uoregon.edu/datagraphics/color_scales.htm).
 
 ```{r}
-displayAvailablePalette(, color="white")
+displayAvailablePalette(color="white")
 ```
 
-`displayAllColors` funciton can be used to show the effect for color vision deficiency. 
+The `displayAllColors` funciton can be used to show the effect 
+for color vision deficiency. 
 Here we dispaly color collection from Bang Wong[@wong2011points].
 
 ```{r}
@@ -166,8 +187,10 @@ ishihara29 <- system.file("extdata", "Plate3.png", package = "colorBlindness")
 library(png)
 img <- readPNG(ishihara29)
 g <- rasterGrob(img, interpolate=TRUE)
-grid.draw(cvdPlot(g, layout = c("origin", "deuteranope", "protanope",
-                               "enhanced", "enhanced.deuteranope", "enhanced.protanope")))
+grid.draw(cvdPlot(g, 
+                  layout = c("origin", "deuteranope", "protanope",
+                             "enhanced", "enhanced.deuteranope", 
+                             "enhanced.protanope")))
 ```
 
 
