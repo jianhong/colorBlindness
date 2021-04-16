@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.1.4
+-----------------------
+  o add rmarkdown as suggests. 
+
 CHANGES IN VERSION 0.1.3
 -----------------------
   o Decrease the size of the package. 

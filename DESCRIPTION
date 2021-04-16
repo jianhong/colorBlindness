@@ -1,7 +1,7 @@
 Package: colorBlindness
 Type: Package
 Title: Safe Color Set for Color Blindness
-Version: 0.1.3
+Version: 0.1.4
 Authors@R: person(given="Jianhong", family="Ou", 
                 email="jianhong.ou@duke.edu", role=c("aut", "cre"), 
                 comment=c(ORCID="0000-0002-8652-2488"))
@@ -14,7 +14,7 @@ Depends:
 Imports:
   ggplot2, grDevices, methods, cowplot, colorspace, graphics, gridGraphics, gtable, grid
 Suggests:
-  knitr, reshape2, stats, png
+  knitr, reshape2, stats, png, markdown
 biocViews: Visualization
 License: GPL (>= 2)
 Encoding: UTF-8
