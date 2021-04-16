@@ -1,16 +1,15 @@
 Package: colorBlindness
 Type: Package
 Title: Safe Color Set for Color Blindness
-Version: 0.1.7
+Version: 0.1.8
 Authors@R: person(given="Jianhong", family="Ou", 
                 email="jianhong.ou@duke.edu", role=c("aut", "cre"), 
                 comment=c(ORCID="0000-0002-8652-2488"))
 Description: Provide the safe color set for color blindness, 
          the simulator of protanopia, deuteranopia.
          The color sets are collected from:
-         Wong, B. (2011) <doi:10.1038/nmeth.1618>,
-         <http://mkweb.bcgsc.ca/biovis2012/>, and
-         <http://geog.uoregon.edu/datagraphics/color_scales.htm>.
+         Wong, B. (2011) <doi:10.1038/nmeth.1618>, and
+         <http://mkweb.bcgsc.ca/biovis2012/>.
          The simulations of the appearance of the colors to color-deficient
          viewers were based on algorithms in
          Vienot, F., Brettel, H. and Mollon, J.D. (1999) 

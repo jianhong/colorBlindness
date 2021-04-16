@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.1.8
+-----------------------
+  o remove the missing link of geog uoregon edu. 
+  
 CHANGES IN VERSION 0.1.7
 -----------------------
   o add rmarkdown as suggests. 
