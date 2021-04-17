@@ -163,8 +163,7 @@ Martin Krzywinski and et al.
 
 See also [GETTING INTO VISUALIZATION OF LARGE BIOLOGICAL DATA
 SETS](http://mkweb.bcgsc.ca/biovis2012/krzywinski-visualizing-biological-data.pdf)
-and [Color Schemes Appropriate for Scientific Data
-Graphics](http://geog.uoregon.edu/datagraphics/color_scales.htm).
+and "Controversial Color Use on Maps"[@cynthia1997spectral].
 
 ```{r}
 displayAvailablePalette(color="white")

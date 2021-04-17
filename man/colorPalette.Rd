@@ -63,8 +63,6 @@ An object of class \code{character} of length 25.
 }
 \source{
 <http://mkweb.bcgsc.ca/biovis2012/>
-
-<http://geog.uoregon.edu/datagraphics/color_scales.htm>
 }
 \usage{
 paletteMartin
